@@ -17,9 +17,6 @@ class TrayApp:
         self.indicator.set_status(AppIndicator3.IndicatorStatus.ACTIVE)
         self.indicator.set_menu(self.create_menu())
         
-        # Abre menu com opção para Sair quando clicado com o botão direito
-        self.indicator.connect("menu-activate", self.show_window)
-
         # Janela flutuante
         self.window = Gtk.Window(type=Gtk.WindowType.TOPLEVEL)
         self.window.set_default_size(800, 600)  # Tamanho inicial
@@ -90,7 +87,13 @@ class TrayApp:
 
     def create_menu(self):
         menu = Gtk.Menu()
+        # Abre menu com opção para Sair quando clicado com o botão direito
+        item = Gtk.MenuItem("Sair")
+        item.connect("activate", lambda _: Gtk.main_quit())
+        menu.append(item)
         menu.show_all()
+        self.indicator.set_menu(menu)
+        self.indicator.connect("activate", self.show_window)
         return menu
 
     def show_window(self, *_):

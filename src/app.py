@@ -9,7 +9,7 @@ class TrayApp:
     def __init__(self):
         # Cria o indicador na barra de tarefas
         self.indicator = AppIndicator3.Indicator.new(
-            "tray-app",
+            "uubuntu-copilot",
             "dialog-information",  # Ícone padrão
             AppIndicator3.IndicatorCategory.APPLICATION_STATUS,
         )

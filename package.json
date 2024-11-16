@@ -1,0 +1,30 @@
+{
+	"name": "ubuntu-copilot",
+	"version": "0.0.1",
+	"description": "Ubuntu Copilot",
+	"main": "app.py",
+	"scripts": {
+		"test": "python3 app.py",
+		"save": "./scripts/save.sh",
+		"new:patch": "./scripts/new.sh patch",
+		"new:update": "./scripts/new.sh update",
+		"new:upgrade": "./scripts/new.sh upgrade",
+		"publish": "./scripts/publish.sh"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/hermannhahn/ubuntu-copilot.git"
+	},
+	"keywords": [
+		"AI",
+		"Gemini",
+		"Voice",
+		"Assistant"
+	],
+	"author": "Hermann Hahn",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/hermannhahn/ubuntu-copilot/issues"
+	},
+	"homepage": "https://github.com/hermannhahn/ubuntu-copilot#readme"
+}

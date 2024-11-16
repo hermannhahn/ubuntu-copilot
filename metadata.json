@@ -1,0 +1,10 @@
+{
+	"name": "Unofficial Ubuntu Copilot",
+	"description": "Artificial Intelligence Voice Assistant",
+	"uuid": "uuc@hermannhahn",
+	"donations": {
+		"pix": "hermann.h.hahn@gmail.com"
+	},
+	"url": "https://github.com/hermannhahn/ubuntu-copilot.git",
+	"version": 0.0
+}

@@ -56,7 +56,13 @@ class TrayApp:
         input_scroll.add(self.input_text)
         bottom_box.pack_start(input_scroll, expand=True, fill=True, padding=0)
 
-        # Botões com ícones (mic, trash, settings)
+        # Botões com ícones (send, mic, trash, settings)
+        send_button = Gtk.Button()
+        send_icon = Gtk.Image.new_from_icon_name("chat-send", Gtk.IconSize.BUTTON)
+        send_button.add(send_icon)
+        send_button.connect("clicked", self.on_send_click)
+        bottom_box.pack_start(send_button, expand=False, fill=False, padding=0)
+
         mic_button = Gtk.Button()
         mic_icon = Gtk.Image.new_from_icon_name("audio-input-microphone", Gtk.IconSize.BUTTON)
         mic_button.add(mic_icon)

@@ -18,46 +18,55 @@ class TrayApp:
 
         # Janela flutuante
         self.window = Gtk.Window(type=Gtk.WindowType.TOPLEVEL)
-        self.window.set_default_size(800, 600)  # Tamanho inicial (caso maximizar falhe)
+        self.window.set_default_size(800, 600)  # Tamanho inicial
         self.window.set_border_width(10)
-        self.window.set_title("Janela Flutuante")
+        self.window.set_title("Chat App")
         self.window.set_position(Gtk.WindowPosition.CENTER)
 
         self.window.connect("focus-out-event", lambda *args: self.window.hide())
 
         # Layout principal da janela
-        main_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        main_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
         self.window.add(main_box)
 
-        # Caixa de texto multilinhas
-        self.text_view = Gtk.TextView()
-        self.text_view.set_wrap_mode(Gtk.WrapMode.WORD)
-        main_box.pack_start(self.text_view, expand=True, fill=True, padding=0)
+        # Área de chat (acima)
+        self.chat_area = Gtk.TextView()
+        self.chat_area.set_wrap_mode(Gtk.WrapMode.WORD)
+        self.chat_area.set_editable(False)
+        self.chat_area.set_cursor_visible(False)
+        self.chat_area.set_vexpand(True)  # Expande para preencher o espaço disponível
+        chat_scroll = Gtk.ScrolledWindow()
+        chat_scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
+        chat_scroll.add(self.chat_area)
+        main_box.pack_start(chat_scroll, expand=True, fill=True, padding=0)
 
-        # Botões com ícones
-        button_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=5)
-        main_box.pack_start(button_box, expand=False, fill=False, padding=0)
+        # Área inferior (caixa de texto e ícones)
+        bottom_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=5)
+        main_box.pack_start(bottom_box, expand=False, fill=True, padding=0)
 
-        # Botão Mic
+        # Caixa de texto para entrada de perguntas
+        self.input_text = Gtk.Entry()
+        self.input_text.set_placeholder_text("Digite sua pergunta aqui...")
+        bottom_box.pack_start(self.input_text, expand=True, fill=True, padding=0)
+
+        # Botões com ícones (mic, trash, settings)
         mic_button = Gtk.Button()
         mic_icon = Gtk.Image.new_from_icon_name("audio-input-microphone", Gtk.IconSize.BUTTON)
         mic_button.add(mic_icon)
         mic_button.connect("clicked", self.on_mic_click)
-        button_box.pack_start(mic_button, expand=False, fill=False, padding=0)
+        bottom_box.pack_start(mic_button, expand=False, fill=False, padding=0)
 
-        # Botão Trash
         trash_button = Gtk.Button()
         trash_icon = Gtk.Image.new_from_icon_name("user-trash", Gtk.IconSize.BUTTON)
         trash_button.add(trash_icon)
         trash_button.connect("clicked", self.on_trash_click)
-        button_box.pack_start(trash_button, expand=False, fill=False, padding=0)
+        bottom_box.pack_start(trash_button, expand=False, fill=False, padding=0)
 
-        # Botão Settings
         settings_button = Gtk.Button()
         settings_icon = Gtk.Image.new_from_icon_name("emblem-system", Gtk.IconSize.BUTTON)
         settings_button.add(settings_icon)
         settings_button.connect("clicked", self.on_settings_click)
-        button_box.pack_start(settings_button, expand=False, fill=False, padding=0)
+        bottom_box.pack_start(settings_button, expand=False, fill=False, padding=0)
 
         # Monitora cliques no tray via timeout
         self.monitor_tray()
@@ -85,8 +94,10 @@ class TrayApp:
         print("Mic button clicked")
 
     def on_trash_click(self, button):
-        buffer = self.text_view.get_buffer()
-        buffer.set_text("")  # Limpa o texto
+        # Limpa tanto a entrada quanto a área de chat
+        self.input_text.set_text("")
+        buffer = self.chat_area.get_buffer()
+        buffer.set_text("")
 
     def on_settings_click(self, button):
         print("Settings button clicked")

@@ -21,11 +21,14 @@ class TrayApp:
         self.window.set_size_request(300, 150)
         self.window.set_resizable(False)
         self.window.set_border_width(10)
-        # Align at right and bottom
         self.window.connect("focus-out-event", lambda *args: self.window.hide())
 
         # Layout principal da janela
-        main_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        # Align at right and bottom
+        main_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
+        main_box.set_homogeneous(False)
+        main_box.set_valign(Gtk.Align.END)
+        main_box.set_halign(Gtk.Align.END)
         self.window.add(main_box)
 
         # Caixa de texto multilinhas

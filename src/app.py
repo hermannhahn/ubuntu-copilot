@@ -88,10 +88,10 @@ class TrayApp:
     def create_menu(self):
         menu = Gtk.Menu()
         openclose = Gtk.MenuItem("Abrir")
-        openclose.connect("activate", self.show_window)
-        menu.append(openclose)
         quit = Gtk.MenuItem("Sair")
+        openclose.connect("activate", self.show_window)
         quit.connect("activate", lambda _: Gtk.main_quit())
+        menu.append(openclose)
         menu.append(quit)
         menu.show_all()
         return menu

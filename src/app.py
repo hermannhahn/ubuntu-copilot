@@ -47,7 +47,7 @@ class TrayApp:
 
         # Caixa de texto para entrada de perguntas (multilinhas com limite de 3 linhas visíveis)
         input_scroll = Gtk.ScrolledWindow()
-        input_scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER)  # Apenas scroll vertical
+        input_scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)  # Apenas scroll vertical
         # input_scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
         input_scroll.set_min_content_height(60)  # Aproximadamente 3 linhas de altura
         input_scroll.set_max_content_height(60)  # Fixar altura máxima em 3 linhas

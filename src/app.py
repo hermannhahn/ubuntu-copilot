@@ -14,9 +14,7 @@ class TrayApp:
             AppIndicator3.IndicatorCategory.APPLICATION_STATUS,
         )
         self.indicator.set_status(AppIndicator3.IndicatorStatus.ACTIVE)
-
-        # Conecta o clique do ícone do tray à abertura da janela
-        self.indicator.connect("activate", self.show_window)
+        self.indicator.set_menu(self.create_empty_menu())  # Necessário, mesmo que vazio
 
         # Janela flutuante
         self.window = Gtk.Window(type=Gtk.WindowType.TOPLEVEL)
@@ -61,6 +59,19 @@ class TrayApp:
         settings_button.connect("clicked", self.on_settings_click)
         button_box.pack_start(settings_button, expand=False, fill=False, padding=0)
 
+        # Monitora cliques no tray via timeout
+        self.monitor_tray()
+
+    def create_empty_menu(self):
+        # Cria um menu vazio (necessário para evitar erros no AppIndicator)
+        menu = Gtk.Menu()
+        menu.show_all()
+        return menu
+
+    def monitor_tray(self):
+        # Adiciona um temporizador para verificar cliques no ícone do tray
+        GObject.timeout_add(500, self.show_window)
+
     def show_window(self, *_):
         # Mostra a janela flutuante maximizada
         if not self.window.get_visible():
@@ -68,6 +79,7 @@ class TrayApp:
             self.window.maximize()
         else:
             self.window.hide()
+        return False  # Retorna False para não repetir o timeout
 
     def on_mic_click(self, button):
         print("Mic button clicked")

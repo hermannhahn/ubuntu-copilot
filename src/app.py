@@ -112,6 +112,23 @@ class TrayApp:
             self.on_send_click(None)
 
     def on_send_click(self, button):
+        buffer = self.input_text.get_buffer()
+        text = buffer.get_text(buffer.get_start_iter(), buffer.get_end_iter(), True)
+        if text.strip():  # Verifica se há texto além de espaços em branco
+            self.add_message_to_chat(text, True)  # Adiciona a mensagem do usuário
+            self.add_message_to_chat("Resposta do modelo de linguagem", False)  # Adiciona a resposta do modelo
+            buffer.set_text("")  # Limpa a caixa de texto de entrada
+
+    def add_message_to_chat(self, message, user):
+        buffer = self.chat_area.get_buffer()
+        end_iter = buffer.get_end_iter()
+        if user:
+            buffer.insert(end_iter, f"User: {message}\n")
+        else:
+            buffer.insert(end_iter, f"Model: {message}\n")
+        self.chat_area.scroll_to_iter(end_iter, 0, True, 0, 0)
+
+    def on_send_click(self, button):
         print("Send button clicked")
 
     def on_mic_click(self, button):

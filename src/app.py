@@ -14,15 +14,16 @@ class TrayApp:
             AppIndicator3.IndicatorCategory.APPLICATION_STATUS,
         )
         self.indicator.set_status(AppIndicator3.IndicatorStatus.ACTIVE)
-        self.indicator.set_menu(self.create_menu())
+
+        # Conecta o clique do ícone do tray à abertura da janela
+        self.indicator.connect("activate", self.show_window)
 
         # Janela flutuante
-        self.window = Gtk.Window(type=Gtk.WindowType.POPUP)
-        self.window.set_size_request(300, 150)
-        self.window.set_resizable(False)
+        self.window = Gtk.Window(type=Gtk.WindowType.TOPLEVEL)
+        self.window.set_default_size(800, 600)  # Tamanho inicial (caso maximizar falhe)
         self.window.set_border_width(10)
-        self.window.set_valign(Gtk.Align.END)
-        self.window.set_halign(Gtk.Align.END)
+        self.window.set_title("Janela Flutuante")
+        self.window.set_position(Gtk.WindowPosition.CENTER)
 
         self.window.connect("focus-out-event", lambda *args: self.window.hide())
 
@@ -60,25 +61,11 @@ class TrayApp:
         settings_button.connect("clicked", self.on_settings_click)
         button_box.pack_start(settings_button, expand=False, fill=False, padding=0)
 
-    def create_menu(self):
-        # Menu de contexto para o indicador
-        menu = Gtk.Menu()
-
-        show_item = Gtk.MenuItem(label="Abrir")
-        show_item.connect("activate", self.show_window)
-        menu.append(show_item)
-
-        quit_item = Gtk.MenuItem(label="Sair")
-        quit_item.connect("activate", Gtk.main_quit)
-        menu.append(quit_item)
-
-        menu.show_all()
-        return menu
-
     def show_window(self, *_):
-        # Mostra a janela flutuante
+        # Mostra a janela flutuante maximizada
         if not self.window.get_visible():
             self.window.show_all()
+            self.window.maximize()
         else:
             self.window.hide()
 

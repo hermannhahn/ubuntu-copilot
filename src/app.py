@@ -21,10 +21,13 @@ class TrayApp:
         self.window.set_size_request(300, 150)
         self.window.set_resizable(False)
         self.window.set_border_width(10)
+        self.window.set_homogeneous(False)
+        self.window.set_valign(Gtk.Align.END)
+        self.window.set_halign(Gtk.Align.END)
+
         self.window.connect("focus-out-event", lambda *args: self.window.hide())
 
         # Layout principal da janela
-        # Align at right and bottom
         main_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         self.window.add(main_box)
 

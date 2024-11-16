@@ -36,7 +36,7 @@ class TrayApp:
         self.chat_area.set_cursor_visible(False)
         self.chat_area.set_vexpand(True)  # Expande para preencher o espaço disponível
         chat_scroll = Gtk.ScrolledWindow()
-        chat_scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER)  # Apenas scroll vertical
+        chat_scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)  # Apenas scroll vertical
         # chat_scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
         chat_scroll.add(self.chat_area)
         main_box.pack_start(chat_scroll, expand=True, fill=True, padding=0)

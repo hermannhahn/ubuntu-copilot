@@ -22,7 +22,6 @@ class TrayApp:
         self.window.set_resizable(False)
         self.window.set_border_width(10)
         # Align at right and bottom
-        self.window.set_position(Gtk.WindowPosition.BOTTOM)
         self.window.set_position(Gtk.WindowPosition.RIGHT)
         self.window.connect("focus-out-event", lambda *args: self.window.hide())
 

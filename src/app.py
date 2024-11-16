@@ -92,8 +92,6 @@ class TrayApp:
         item.connect("activate", lambda _: Gtk.main_quit())
         menu.append(item)
         menu.show_all()
-        self.indicator.set_menu(menu)
-        self.indicator.connect("activate", self.show_window)
         return menu
 
     def show_window(self, *_):

@@ -128,9 +128,6 @@ class TrayApp:
             buffer.insert(end_iter, f"Model: {message}\n")
         self.chat_area.scroll_to_iter(end_iter, 0, True, 0, 0)
 
-    def on_send_click(self, button):
-        print("Send button clicked")
-
     def on_mic_click(self, button):
         print("Mic button clicked")
 

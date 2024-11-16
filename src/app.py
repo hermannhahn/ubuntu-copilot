@@ -58,7 +58,7 @@ class TrayApp:
 
         # Botões com ícones (send, mic, trash, settings)
         send_button = Gtk.Button()
-        send_icon = Gtk.Image.new_from_icon_name("chat-send", Gtk.IconSize.BUTTON)
+        send_icon = Gtk.Image.new_from_icon_name("mail-send-receive", Gtk.IconSize.BUTTON)
         send_button.add(send_icon)
         send_button.connect("clicked", self.on_send_click)
         bottom_box.pack_start(send_button, expand=False, fill=False, padding=0)

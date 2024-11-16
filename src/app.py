@@ -103,6 +103,9 @@ class TrayApp:
             self.window.hide()
         return False  # Retorna False para não repetir o timeout
 
+    def on_send_click(self, button):
+        print("Send button clicked")
+
     def on_mic_click(self, button):
         print("Mic button clicked")
 

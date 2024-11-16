@@ -57,6 +57,9 @@ class TrayApp:
         input_scroll.add(self.input_text)
         bottom_box.pack_start(input_scroll, expand=True, fill=True, padding=0)
 
+        # Enter
+        self.input_text.connect("key-press-event", self.on_enter)
+        
         # Botões com ícones (send, mic, trash, settings)
         send_button = Gtk.Button()
         send_icon = Gtk.Image.new_from_icon_name("mail-send-receive", Gtk.IconSize.BUTTON)

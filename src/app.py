@@ -25,10 +25,7 @@ class TrayApp:
 
         # Layout principal da janela
         # Align at right and bottom
-        main_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
-        main_box.set_homogeneous(False)
-        main_box.set_valign(Gtk.Align.END)
-        main_box.set_halign(Gtk.Align.END)
+        main_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
         self.window.add(main_box)
 
         # Caixa de texto multilinhas

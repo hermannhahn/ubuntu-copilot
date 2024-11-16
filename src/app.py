@@ -3,27 +3,33 @@ from tkinter import messagebox, scrolledtext
 from pystray import Icon, MenuItem, Menu
 from PIL import Image, ImageDraw
 import threading
+from pynput import keyboard
 
 
-class ChatApp:
-    def __init__(self):
-        self.root = tk.Tk()
+class CrossPlatformApp:
+    def __init__(self, root):
+        self.root = root
         self.root.title("AI Chat")
         self.root.geometry("800x600")
-        self.root.protocol("WM_DELETE_WINDOW", self.hide_window)
+
+        # Adiciona a interface de chat
         self.create_ui()
 
-        # Variáveis do tray icon
+        # Adiciona o monitor de teclado
+        self.start_keyboard_monitor()
+
+        # Ícone do tray
         self.icon = None
         self.create_tray_icon()
 
     def create_ui(self):
+        """Cria a interface gráfica do chat."""
         # Área de chat
         self.chat_area = scrolledtext.ScrolledText(self.root, wrap=tk.WORD, font=("Arial", 12))
         self.chat_area.config(state=tk.DISABLED)  # Apenas leitura
         self.chat_area.pack(expand=True, fill=tk.BOTH, padx=5, pady=5)
 
-        # Área de entrada
+        # Área de entrada e botões
         bottom_frame = tk.Frame(self.root)
         bottom_frame.pack(side=tk.BOTTOM, fill=tk.X, padx=5, pady=5)
 
@@ -47,22 +53,22 @@ class ChatApp:
         settings_button.grid(row=0, column=3, padx=5)
 
     def send_message(self):
-        # Obtém o texto do usuário
+        """Envia a mensagem digitada pelo usuário."""
         user_message = self.input_area.get("1.0", tk.END).strip()
         if user_message:
             self.update_chat(f"User: {user_message}")
-            # Simula resposta da AI
             self.update_chat(f"Model: Hello, I received: {user_message}")
         self.input_area.delete("1.0", tk.END)
 
     def update_chat(self, message):
+        """Atualiza a área de chat com uma nova mensagem."""
         self.chat_area.config(state=tk.NORMAL)
         self.chat_area.insert(tk.END, message + "\n")
-        self.chat_area.see(tk.END)  # Rola para o final
+        self.chat_area.see(tk.END)
         self.chat_area.config(state=tk.DISABLED)
 
     def create_tray_icon(self):
-        # Criação do ícone para o tray
+        """Cria o ícone do tray com menu."""
         icon_image = self.generate_icon_image()
         menu = Menu(MenuItem("Open", self.show_window), MenuItem("Quit", self.quit_app))
         self.icon = Icon("AI Chat", icon_image, menu=menu)
@@ -71,7 +77,7 @@ class ChatApp:
         threading.Thread(target=self.icon.run, daemon=True).start()
 
     def generate_icon_image(self):
-        # Gera um ícone simples com PIL
+        """Gera um ícone simples usando PIL."""
         size = (64, 64)
         image = Image.new("RGB", size, color="blue")
         draw = ImageDraw.Draw(image)
@@ -79,19 +85,47 @@ class ChatApp:
         return image
 
     def show_window(self, _=None):
+        """Mostra a janela principal."""
         self.root.deiconify()
 
     def hide_window(self):
+        """Esconde a janela principal."""
         self.root.withdraw()
 
     def quit_app(self, _=None):
-        self.icon.stop()
+        """Encerra o aplicativo."""
+        if self.icon:
+            self.icon.stop()
         self.root.quit()
 
+    def start_keyboard_monitor(self):
+        """Inicia o monitor de teclado em uma thread separada."""
+        threading.Thread(target=self.keyboard_listener, daemon=True).start()
+
+    def keyboard_listener(self):
+        """Monitora eventos globais de teclado."""
+        def on_press(key):
+            try:
+                if key == keyboard.Key.f1:
+                    # A chamada para mostrar a mensagem precisa ser feita na thread principal do Tkinter
+                    self.root.after(0, self.on_f1_pressed)
+            except Exception as e:
+                print(f"Erro no listener de teclado: {e}")
+
+        # Inicia o listener de teclado
+        with keyboard.Listener(on_press=on_press) as listener:
+            listener.join()
+
+    def on_f1_pressed(self):
+        """Ação executada ao pressionar F1."""
+        messagebox.showinfo("Tecla F1 Pressionada", "Você pressionou F1!")
+
     def run(self):
+        self.root.protocol("WM_DELETE_WINDOW", self.hide_window)
         self.root.mainloop()
 
 
 if __name__ == "__main__":
-    app = ChatApp()
+    root = tk.Tk()
+    app = CrossPlatformApp(root)
     app.run()

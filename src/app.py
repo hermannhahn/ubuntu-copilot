@@ -21,7 +21,6 @@ class TrayApp:
         self.window.set_size_request(300, 150)
         self.window.set_resizable(False)
         self.window.set_border_width(10)
-        self.window.set_homogeneous(False)
         self.window.set_valign(Gtk.Align.END)
         self.window.set_halign(Gtk.Align.END)
 

@@ -15,7 +15,10 @@ class TrayApp:
             AppIndicator3.IndicatorCategory.APPLICATION_STATUS,
         )
         self.indicator.set_status(AppIndicator3.IndicatorStatus.ACTIVE)
-        self.indicator.set_menu(self.create_empty_menu())  # Necessário, mesmo que vazio
+        self.indicator.set_menu(self.create_menu())
+        
+        # Abre menu com opção para Sair quando clicado com o botão direito
+        self.indicator.connect("menu-activate", self.show_window)
 
         # Janela flutuante
         self.window = Gtk.Window(type=Gtk.WindowType.TOPLEVEL)
@@ -85,8 +88,7 @@ class TrayApp:
         settings_button.connect("clicked", self.on_settings_click)
         bottom_box.pack_start(settings_button, expand=False, fill=False, padding=0)
 
-    def create_empty_menu(self):
-        # Cria um menu vazio (necessário para evitar erros no AppIndicator)
+    def create_menu(self):
         menu = Gtk.Menu()
         menu.show_all()
         return menu

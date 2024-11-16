@@ -44,11 +44,12 @@ class TrayApp:
         bottom_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=5)
         main_box.pack_start(bottom_box, expand=False, fill=True, padding=0)
 
-        # Caixa de texto para entrada de perguntas (multilinhas com limite de 3 linhas visíveis)
+        # Caixa de texto para entrada de perguntas (multilinhas com limite fixo de 3 linhas visíveis)
         input_scroll = Gtk.ScrolledWindow()
         input_scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER)  # Apenas scroll vertical
-        input_scroll.set_min_content_height(60)  # Aproximadamente 3 linhas de altura
-        input_scroll.set_max_content_height(60)  # Fixar altura máxima em 3 linhas
+        input_scroll.set_min_content_height(60)  # Altura fixa para 3 linhas (aproximadamente)
+        input_scroll.set_max_content_height(60)  # Garante que o tamanho não varie
+        input_scroll.set_propagate_natural_height(False)  # Tamanho fixo, mesmo com conteúdo maior
         self.input_text = Gtk.TextView()
         self.input_text.set_wrap_mode(Gtk.WrapMode.WORD_CHAR)  # Quebra de linha automática
         input_scroll.add(self.input_text)

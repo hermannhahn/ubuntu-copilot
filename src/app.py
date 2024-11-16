@@ -2,9 +2,10 @@ import gi
 
 gi.require_version("Gtk", "3.0")
 gi.require_version("AppIndicator3", "0.1")
-from gi.repository import Gtk, AppIndicator3, GObject
+from gi.repository import Gtk, AppIndicator3, GObject, Gdk
 
 
+# Classe principal
 class TrayApp:
     def __init__(self):
         # Cria o indicador na barra de tarefas
@@ -102,6 +103,10 @@ class TrayApp:
         else:
             self.window.hide()
         return False  # Retorna False para não repetir o timeout
+    
+    def on_enter(self, widget, event):
+        if event.keyval == Gdk.KEY_Return:
+            self.on_send_click(None)
 
     def on_send_click(self, button):
         print("Send button clicked")

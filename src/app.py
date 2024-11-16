@@ -39,7 +39,7 @@ class TrayApp:
         chat_scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)  # Apenas scroll vertical
         # chat_scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
         chat_scroll.add(self.chat_area)
-        main_box.pack_start(chat_scroll, expand=True, fill=True, padding=0)
+        main_box.pack_start(chat_scroll, expand=False, fill=True, padding=0)
 
         # Área inferior (caixa de texto e ícones)
         bottom_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=5)

@@ -2,27 +2,28 @@ import gi
 
 gi.require_version("Gtk", "3.0")
 gi.require_version("AppIndicator3", "0.1")
-from gi.repository import Gtk, AppIndicator3, Gdk
+from gi.repository import Gtk, AppIndicator3, GObject
 
 
 class TrayApp:
     def __init__(self):
-        # Cria o indicador na bandeja do sistema
+        # Cria o indicador na barra de tarefas
         self.indicator = AppIndicator3.Indicator.new(
             "tray-app",
-            "dialog-information",  # Ícone do sistema
+            "dialog-information",  # Ícone padrão
             AppIndicator3.IndicatorCategory.APPLICATION_STATUS,
         )
         self.indicator.set_status(AppIndicator3.IndicatorStatus.ACTIVE)
-
-        # Conecta o clique no ícone para abrir a janela
-        self.indicator.connect("activate", self.show_window)
+        self.indicator.set_menu(self.create_menu())
 
         # Janela flutuante
         self.window = Gtk.Window(type=Gtk.WindowType.POPUP)
         self.window.set_size_request(300, 150)
         self.window.set_resizable(False)
         self.window.set_border_width(10)
+        # Align at right and bottom
+        self.window.set_position(Gtk.WindowPosition.BOTTOM)
+        self.window.set_position(Gtk.WindowPosition.RIGHT)
         self.window.connect("focus-out-event", lambda *args: self.window.hide())
 
         # Layout principal da janela
@@ -59,25 +60,27 @@ class TrayApp:
         settings_button.connect("clicked", self.on_settings_click)
         button_box.pack_start(settings_button, expand=False, fill=False, padding=0)
 
+    def create_menu(self):
+        # Menu de contexto para o indicador
+        menu = Gtk.Menu()
+
+        show_item = Gtk.MenuItem(label="Abrir")
+        show_item.connect("activate", self.show_window)
+        menu.append(show_item)
+
+        quit_item = Gtk.MenuItem(label="Sair")
+        quit_item.connect("activate", Gtk.main_quit)
+        menu.append(quit_item)
+
+        menu.show_all()
+        return menu
+
     def show_window(self, *_):
-        # Mostra a janela flutuante próxima ao ícone
+        # Mostra a janela flutuante
         if not self.window.get_visible():
-            self.position_window()
             self.window.show_all()
         else:
             self.window.hide()
-
-    def position_window(self):
-        # Posiciona a janela acima do ícone na bandeja
-        screen = Gdk.Screen.get_default()
-        pointer = Gdk.Display.get_default().get_default_seat().get_pointer()
-        _, icon_x, icon_y = pointer.get_position()
-
-        # Define a posição da janela
-        window_width, window_height = self.window.get_size()
-        x = max(0, icon_x - (window_width // 2))
-        y = max(0, icon_y - window_height - 10)  # Ajuste para abrir acima
-        self.window.move(x, y)
 
     def on_mic_click(self, button):
         print("Mic button clicked")
@@ -91,5 +94,6 @@ class TrayApp:
 
 
 if __name__ == "__main__":
+    GObject.threads_init()  # Inicializa threads do GTK
     app = TrayApp()
     Gtk.main()

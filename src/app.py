@@ -87,10 +87,12 @@ class TrayApp:
 
     def create_menu(self):
         menu = Gtk.Menu()
-        # Abre menu com opção para Sair quando clicado com o botão direito
-        item = Gtk.MenuItem("Sair")
-        item.connect("activate", lambda _: Gtk.main_quit())
-        menu.append(item)
+        openclose = Gtk.MenuItem("Abrir")
+        openclose.connect("activate", self.show_window)
+        menu.append(openclose)
+        quit = Gtk.MenuItem("Sair")
+        quit.connect("activate", lambda _: Gtk.main_quit())
+        menu.append(quit)
         menu.show_all()
         return menu
 

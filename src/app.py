@@ -31,12 +31,12 @@ class TrayApp:
 
         # Área de chat (acima)
         self.chat_area = Gtk.TextView()
-        self.chat_area.set_wrap_mode(Gtk.WrapMode.WORD_CHAR)  # Quebra de linha automática
+        self.chat_area.set_wrap_mode(Gtk.WrapMode.WORD)
         self.chat_area.set_editable(False)
         self.chat_area.set_cursor_visible(False)
         self.chat_area.set_vexpand(True)  # Expande para preencher o espaço disponível
         chat_scroll = Gtk.ScrolledWindow()
-        chat_scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER)  # Apenas scroll vertical
+        chat_scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
         chat_scroll.add(self.chat_area)
         main_box.pack_start(chat_scroll, expand=True, fill=True, padding=0)
 
@@ -44,16 +44,10 @@ class TrayApp:
         bottom_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=5)
         main_box.pack_start(bottom_box, expand=False, fill=True, padding=0)
 
-        # Caixa de texto para entrada de perguntas (multilinhas com limite fixo de 3 linhas visíveis)
-        input_scroll = Gtk.ScrolledWindow()
-        input_scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER)  # Apenas scroll vertical
-        input_scroll.set_min_content_height(60)  # Altura fixa para 3 linhas (aproximadamente)
-        input_scroll.set_max_content_height(60)  # Garante que o tamanho não varie
-        input_scroll.set_propagate_natural_height(False)  # Tamanho fixo, mesmo com conteúdo maior
-        self.input_text = Gtk.TextView()
-        self.input_text.set_wrap_mode(Gtk.WrapMode.WORD_CHAR)  # Quebra de linha automática
-        input_scroll.add(self.input_text)
-        bottom_box.pack_start(input_scroll, expand=True, fill=True, padding=0)
+        # Caixa de texto para entrada de perguntas
+        self.input_text = Gtk.Entry()
+        self.input_text.set_placeholder_text("Digite sua pergunta aqui...")
+        bottom_box.pack_start(self.input_text, expand=True, fill=True, padding=0)
 
         # Botões com ícones (mic, trash, settings)
         mic_button = Gtk.Button()
@@ -101,10 +95,9 @@ class TrayApp:
 
     def on_trash_click(self, button):
         # Limpa tanto a entrada quanto a área de chat
-        buffer = self.input_text.get_buffer()
+        self.input_text.set_text("")
+        buffer = self.chat_area.get_buffer()
         buffer.set_text("")
-        chat_buffer = self.chat_area.get_buffer()
-        chat_buffer.set_text("")
 
     def on_settings_click(self, button):
         print("Settings button clicked")

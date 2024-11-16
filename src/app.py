@@ -31,12 +31,12 @@ class TrayApp:
 
         # Área de chat (acima)
         self.chat_area = Gtk.TextView()
-        self.chat_area.set_wrap_mode(Gtk.WrapMode.WORD)
+        self.chat_area.set_wrap_mode(Gtk.WrapMode.WORD_CHAR)  # Quebra de linha automática
         self.chat_area.set_editable(False)
         self.chat_area.set_cursor_visible(False)
         self.chat_area.set_vexpand(True)  # Expande para preencher o espaço disponível
         chat_scroll = Gtk.ScrolledWindow()
-        chat_scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
+        chat_scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER)  # Apenas scroll vertical
         chat_scroll.add(self.chat_area)
         main_box.pack_start(chat_scroll, expand=True, fill=True, padding=0)
 
@@ -46,11 +46,11 @@ class TrayApp:
 
         # Caixa de texto para entrada de perguntas (multilinhas com limite de 3 linhas visíveis)
         input_scroll = Gtk.ScrolledWindow()
-        input_scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
+        input_scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER)  # Apenas scroll vertical
         input_scroll.set_min_content_height(60)  # Aproximadamente 3 linhas de altura
         input_scroll.set_max_content_height(60)  # Fixar altura máxima em 3 linhas
         self.input_text = Gtk.TextView()
-        self.input_text.set_wrap_mode(Gtk.WrapMode.WORD)
+        self.input_text.set_wrap_mode(Gtk.WrapMode.WORD_CHAR)  # Quebra de linha automática
         input_scroll.add(self.input_text)
         bottom_box.pack_start(input_scroll, expand=True, fill=True, padding=0)
 

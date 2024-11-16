@@ -17,7 +17,7 @@ class TrayApp:
         self.indicator.set_status(AppIndicator3.IndicatorStatus.ACTIVE)
         self.indicator.set_menu(self.create_empty_menu())  # Necessário, mesmo que vazio
         self.indicator.connect(
-            "activate", self.show_window
+            "scroll-event", self.show_window
         )
 
         # Janela flutuante

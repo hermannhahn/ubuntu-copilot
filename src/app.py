@@ -49,7 +49,7 @@ class CrossPlatformApp:
                                  borderwidth=0,
                                  highlightthickness=0,
                                  highlightbackground="#252525",
-                                 highlightcolor="#252525")
+                                 highlightcolor="#252525"),
         buttons_frame.pack(side=tk.RIGHT, padx=2)
         buttons_frame.pack_propagate(
             False)  # Evitar redimensionamento automático
@@ -62,6 +62,9 @@ class CrossPlatformApp:
                                 width=button_width,
                                 foreground="#252525",
                                 activebackground="#b5bec7",
+                                padx=5,
+                                pady=5,
+                                background=self.root.cget("bg"),
                                 borderwidth=0)
         send_button.grid(row=0, column=0, padx=2)
 

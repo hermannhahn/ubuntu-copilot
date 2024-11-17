@@ -41,14 +41,7 @@ class CrossPlatformApp:
 
         # Estilo da barra de rolagem
         style = ttk.Style()
-        style.configure("Custom.Vertical.TScrollbar",
-                        gripcount=0,
-                        background="#242424",
-                        troughcolor="#242424",
-                        bordercolor="#242424",
-                        border_frame="#242424",
-                        borderwidth=0,
-                        arrowcolor="darkblue")
+        style.configure("Custom.Vertical.TScrollbar", gripcount=0)
 
         # Barra de rolagem vertical
         scrollbar = ttk.Scrollbar(border_frame,

@@ -98,7 +98,7 @@ class CrossPlatformApp:
                                   height=3,
                                   font=("Arial", 12),
                                   background="#252525",
-                                  foreground="#252525",
+                                  foreground="#ebebeb",
                                   highlightcolor="#252525",
                                   highlightbackground="#252525",
                                   highlightthickness=0,

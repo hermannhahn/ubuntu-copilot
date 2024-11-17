@@ -25,7 +25,7 @@ class CrossPlatformApp:
     def create_ui(self):
         """Cria a interface gráfica do chat."""
         # Área de chat
-        self.chat_area = scrolledtext.ScrolledText(self.root, wrap=tk.WORD, font=("Arial", 12))
+        self.chat_area = scrolledtext.ScrolledText(self.root, wrap=tk.WORD, font=("Arial", 12), background="#252525", foreground="white", borderwidth=0)
         self.chat_area.config(state=tk.DISABLED)  # Apenas leitura
         self.chat_area.pack(expand=True, fill=tk.BOTH, padx=5, pady=5)
 

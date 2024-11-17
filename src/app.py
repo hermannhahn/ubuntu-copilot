@@ -100,7 +100,7 @@ class CrossPlatformApp:
                                   background="#252525",
                                   foreground="#ebebeb",
                                   highlightcolor="#252525",
-                                  highlightbackground="#454545",
+                                  highlightbackground="#252525",
                                   highlightthickness=0,
                                   borderwidth=2,
                                   relief="groove",

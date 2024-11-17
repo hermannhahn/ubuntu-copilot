@@ -45,6 +45,7 @@ class CrossPlatformApp:
                                 padx=5,
                                 pady=5,
                                 borderwidth=0,
+                                highlightcolor="#252525",
                                 highlightthickness=0,
                                 highlightbackground="#252525")
         bottom_frame.pack(side=tk.BOTTOM, fill=tk.X, padx=5, pady=5)

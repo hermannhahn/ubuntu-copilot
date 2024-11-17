@@ -56,7 +56,6 @@ class CrossPlatformApp:
                                 text="↵",
                                 command=self.send_message,
                                 width=button_width,
-                                color="white",
                                 activebackground=self.root.cget("bg"),
                                 activeforeground="white",
                                 background=self.root.cget("bg"),

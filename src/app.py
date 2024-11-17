@@ -11,6 +11,8 @@ from chat import Chat
 class CrossPlatformApp:
 
     def __init__(self, root):
+        self.root = root
+
         # Keyboard events
         self.start_keyboard_monitor()
 
@@ -82,6 +84,7 @@ class CrossPlatformApp:
         messagebox.showinfo("Tecla F1 Pressionada", "Você pressionou F1!")
 
     def run(self):
+        self.root.protocol("WM_DELETE_WINDOW", self.hide_window)
         self.root.mainloop()
 
 

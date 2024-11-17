@@ -60,6 +60,9 @@ class CrossPlatformApp:
                                  highlightthickness=0,
                                  insertbackground="white",
                                  state=tk.DISABLED,
+                                 padx=5,
+                                 pady=5,
+                                 relief="groove",
                                  borderwidth=0)
         self.chat_area.pack(expand=True, fill=tk.BOTH)
         scrollbar.config(command=self.chat_area.yview)

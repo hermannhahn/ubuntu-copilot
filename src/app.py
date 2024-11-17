@@ -44,7 +44,7 @@ class CrossPlatformApp:
                                 bg="#252525",
                                 padx=5,
                                 pady=5,
-                                borderwidth=0,
+                                borderwidth=1,
                                 highlightcolor="#252525",
                                 highlightthickness=0,
                                 highlightbackground="#252525")

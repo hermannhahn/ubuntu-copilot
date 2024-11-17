@@ -37,7 +37,7 @@ class CrossPlatformApp:
         style = ttk.Style()
         style.configure("Custom.Vertical.TScrollbar",
                         gripcount=0,
-                        background="lightgray",
+                        background="#242424",
                         troughcolor="white",
                         bordercolor="#242424",
                         arrowcolor="darkblue")

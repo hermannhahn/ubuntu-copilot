@@ -104,7 +104,6 @@ class CrossPlatformApp:
                                   highlightthickness=0,
                                   borderwidth=2,
                                   relief="groove",
-                                  bg="#454545",
                                   insertbackground="white",
                                   state=tk.NORMAL)
         self.input_area.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=5)

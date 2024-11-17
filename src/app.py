@@ -90,7 +90,7 @@ class CrossPlatformApp:
                                 highlightcolor="#252525",
                                 highlightthickness=0,
                                 highlightbackground="#252525")
-        bottom_frame.pack(side=tk.BOTTOM, fill=tk.X, padx=5, pady=5)
+        bottom_frame.pack(side=tk.BOTTOM, fill=tk.X)
 
         # Botões de ação
         buttons_frame = tk.Frame(bottom_frame,

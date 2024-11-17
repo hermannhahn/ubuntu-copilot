@@ -46,13 +46,11 @@ class CrossPlatformApp:
         # Botões de ação
         buttons_frame = tk.Frame(bottom_frame,
                                  bg="#252525",
-                                 padx=5,
-                                 pady=5,
                                  borderwidth=0,
                                  highlightthickness=0,
                                  highlightbackground="#252525",
                                  highlightcolor="#252525")
-        buttons_frame.pack(side=tk.RIGHT, padx=2)
+        buttons_frame.pack(side=tk.RIGHT, padx=2, pady=2)
         buttons_frame.pack_propagate(
             False)  # Evitar redimensionamento automático
 

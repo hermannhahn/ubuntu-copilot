@@ -40,7 +40,7 @@ class CrossPlatformApp:
 
         # Criar botões com tamanhos mínimos
         button_width = 5  # Largura mínima dos botões
-        send_button = tk.Button(buttons_frame, text="↵", command=self.send_message, width=button_width)
+        send_button = tk.Button(buttons_frame, text="↵", command=self.send_message, width=button_width, activebackground=self.root.cget("bg"), activeforeground="white", background=self.root.cget("bg"), foreground="#252525", borderwidth=0)
         send_button.grid(row=0, column=0, padx=2)
 
         mic_button = tk.Button(buttons_frame, text="🎤", command=lambda: print("Mic clicked"), width=button_width)

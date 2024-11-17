@@ -7,6 +7,7 @@ from pynput import keyboard
 
 
 class CrossPlatformApp:
+
     def __init__(self, root):
         self.root = root
         self.root.title("AI Chat")
@@ -25,7 +26,12 @@ class CrossPlatformApp:
     def create_ui(self):
         """Cria a interface gráfica do chat."""
         # Área de chat
-        self.chat_area = scrolledtext.ScrolledText(self.root, wrap=tk.WORD, font=("Arial", 12), background="#252525", foreground="#252525", borderwidth=0)
+        self.chat_area = scrolledtext.ScrolledText(self.root,
+                                                   wrap=tk.WORD,
+                                                   font=("Arial", 12),
+                                                   background="#252525",
+                                                   foreground="#252525",
+                                                   borderwidth=0)
         self.chat_area.config(state=tk.DISABLED)  # Apenas leitura
         self.chat_area.pack(expand=True, fill=tk.BOTH, padx=5, pady=5)
 
@@ -36,24 +42,48 @@ class CrossPlatformApp:
         # Botões de ação
         buttons_frame = tk.Frame(bottom_frame, bg="#252525", borderwidth=0)
         buttons_frame.pack(side=tk.RIGHT, padx=2)
-        buttons_frame.pack_propagate(False)  # Evitar redimensionamento automático
+        buttons_frame.pack_propagate(
+            False)  # Evitar redimensionamento automático
 
         # Criar botões com tamanhos mínimos
         button_width = 5  # Largura mínima dos botões
-        send_button = tk.Button(buttons_frame, text="↵", command=self.send_message, width=button_width, activebackground=self.root.cget("bg"), activeforeground="white", background=self.root.cget("bg"), foreground="#252525", borderwidth=0)
+        send_button = tk.Button(buttons_frame,
+                                text="↵",
+                                command=self.send_message,
+                                width=button_width,
+                                activebackground=self.root.cget("bg"),
+                                activeforeground="white",
+                                background=self.root.cget("bg"),
+                                foreground="#252525",
+                                borderwidth=0)
         send_button.grid(row=0, column=0, padx=2)
 
-        mic_button = tk.Button(buttons_frame, text="🎤", command=lambda: print("Mic clicked"), width=button_width)
+        mic_button = tk.Button(buttons_frame,
+                               text="🎤",
+                               command=lambda: print("Mic clicked"),
+                               width=button_width)
         mic_button.grid(row=0, column=1, padx=2)
 
-        trash_button = tk.Button(buttons_frame, text="🗑️", command=lambda: print("Trash clicked"), width=button_width)
+        trash_button = tk.Button(buttons_frame,
+                                 text="🗑️",
+                                 command=lambda: print("Trash clicked"),
+                                 width=button_width)
         trash_button.grid(row=0, column=2, padx=2)
 
-        settings_button = tk.Button(buttons_frame, text="🛠", command=lambda: print("Settings clicked"), width=button_width)
+        settings_button = tk.Button(buttons_frame,
+                                    text="🛠",
+                                    command=lambda: print("Settings clicked"),
+                                    width=button_width)
         settings_button.grid(row=0, column=3, padx=2)
 
         # Área de entrada ajustável
-        self.input_area = tk.Text(bottom_frame, wrap=tk.WORD, height=3, font=("Arial", 12), background="#252525", foreground="#252525", borderwidth=0)
+        self.input_area = tk.Text(bottom_frame,
+                                  wrap=tk.WORD,
+                                  height=3,
+                                  font=("Arial", 12),
+                                  background="#252525",
+                                  foreground="#252525",
+                                  borderwidth=0)
         self.input_area.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=5)
 
         # Configuração para ajustar a largura do input
@@ -63,7 +93,8 @@ class CrossPlatformApp:
         """Ajusta a largura do input_area conforme o tamanho da janela."""
         button_area_width = 5 * 4 * 10 + 20  # Largura total dos botões (+ margem)
         total_width = self.root.winfo_width()
-        input_width = max(total_width - button_area_width, 100)  # Garante largura mínima
+        input_width = max(total_width - button_area_width,
+                          100)  # Garante largura mínima
         self.input_area.config(width=input_width)
 
     def send_message(self):
@@ -84,7 +115,8 @@ class CrossPlatformApp:
     def create_tray_icon(self):
         """Cria o ícone do tray com menu."""
         icon_image = self.generate_icon_image()
-        menu = Menu(MenuItem("Open", self.show_window), MenuItem("Quit", self.quit_app))
+        menu = Menu(MenuItem("Open", self.show_window),
+                    MenuItem("Quit", self.quit_app))
         self.icon = Icon("AI Chat", icon_image, menu=menu)
 
         # Inicia o tray icon em uma thread separada
@@ -118,6 +150,7 @@ class CrossPlatformApp:
 
     def keyboard_listener(self):
         """Monitora eventos globais de teclado."""
+
         def on_press(key):
             try:
                 if key == keyboard.Key.f1:

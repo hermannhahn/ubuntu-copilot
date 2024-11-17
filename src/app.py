@@ -100,10 +100,10 @@ class CrossPlatformApp:
                                   background="#252525",
                                   foreground="#ebebeb",
                                   highlightcolor="#252525",
-                                  highlightbackground="#252525",
+                                  highlightbackground="#454545",
                                   highlightthickness=0,
                                   borderwidth=2,
-                                  relief="solid",
+                                  relief="groove",
                                   bg="#454545",
                                   insertbackground="white",
                                   state=tk.NORMAL)

@@ -18,6 +18,9 @@ class CrossPlatformApp:
         self.icon = None
         self.create_tray_icon()
 
+        chat = Chat(self.root)
+        chat.root.withdraw()
+
     def create_tray_icon(self):
         """Cria o ícone do tray com menu."""
         # Gera o ícone
@@ -43,7 +46,7 @@ class CrossPlatformApp:
 
     def show_chat(self, _=None):
         """Mostra a janela principal."""
-        self.root.deiconify()
+        chat.root.deiconify()
 
     def hide_window(self):
         """Esconde a janela principal."""

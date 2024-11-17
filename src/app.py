@@ -39,16 +39,16 @@ class CrossPlatformApp:
         # Botões de ação
 
         send_button = tk.Button(bottom_frame, text="↵", command=self.send_message)
-        send_button.grid(row=0, column=0, padx=2)
+        send_button.pack(side=tk.LEFT, padx=2)
 
         mic_button = tk.Button(bottom_frame, text="🎤", command=lambda: print("Mic clicked"))
-        mic_button.grid(row=0, column=1, padx=2)
+        mic_button.pack(side=tk.LEFT, padx=2)
 
         trash_button = tk.Button(bottom_frame, text="🗑️", command=lambda: print("Trash clicked"))
-        trash_button.grid(row=0, column=2, padx=2)
+        trash_button.pack(side=tk.LEFT, padx=2)
 
         settings_button = tk.Button(bottom_frame, text="🛠", command=lambda: print("Settings clicked"))
-        settings_button.grid(row=0, column=3, padx=2)
+        settings_button.pack(side=tk.LEFT, padx=2)
 
     def send_message(self):
         """Envia a mensagem digitada pelo usuário."""

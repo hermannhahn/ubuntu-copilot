@@ -47,7 +47,7 @@ class CrossPlatformApp:
         draw.rectangle((16, 16, 48, 48))
         draw.ellipse((20, 20, 44, 44), fill="#4d7aa1")
         draw.ellipse((24, 24, 40, 40), fill="orange")
-        # draw.ellipse((16, 16, 48, 48), fill="blue", outline="black")
+        draw.ellipse((16, 16, 48, 48), fill="blue", outline="black")
         return image
 
     def show_chat(self, _=None):

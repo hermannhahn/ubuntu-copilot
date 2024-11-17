@@ -1,4 +1,5 @@
 import tkinter as tk
+import tkinter.ttk as ttk
 from tkinter import messagebox, scrolledtext
 from pystray import Icon, MenuItem, Menu
 from PIL import Image, ImageDraw
@@ -13,6 +14,9 @@ class CrossPlatformApp:
         self.root.title("AI Chat")
         self.root.geometry("800x600")
 
+        # Configuração do fundo do root
+        self.root.configure(bg="lightblue")
+
         # Adiciona a interface de chat
         self.create_ui()
 
@@ -25,19 +29,45 @@ class CrossPlatformApp:
 
     def create_ui(self):
         """Cria a interface gráfica do chat."""
-        # Área de chat
-        self.chat_area = scrolledtext.ScrolledText(
-            self.root,
-            wrap=tk.WORD,
-            font=("Arial", 12),
-            background="#252525",
-            foreground="#252525",
-            highlightcolor="#252525",
-            highlightbackground="#252525",
-            highlightthickness=0,
-            borderwidth=0)
-        self.chat_area.config(state=tk.DISABLED)  # Apenas leitura
-        self.chat_area.pack(expand=True, fill=tk.BOTH, padx=5, pady=5)
+        # Borda simulada
+        border_frame = tk.Frame(self.root, bg="black", bd=2)
+        border_frame.pack(fill=tk.BOTH, expand=True, padx=2, pady=2)
+
+        # Estilo da barra de rolagem
+        style = ttk.Style()
+        style.configure("Custom.Vertical.TScrollbar",
+                        gripcount=0,
+                        background="lightgray",
+                        troughcolor="white",
+                        bordercolor="black",
+                        arrowcolor="darkblue")
+
+        # Barra de rolagem vertical
+        scrollbar = ttk.Scrollbar(border_frame,
+                                  orient=tk.VERTICAL,
+                                  style="Custom.Vertical.TScrollbar")
+        scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+
+        # Área de texto com rolagem
+        self.chat_area = tk.Text(border_frame,
+                                 wrap=tk.WORD,
+                                 yscrollcommand=scrollbar.set)
+        self.chat_area.pack(expand=True, fill=tk.BOTH)
+        scrollbar.config(command=self.chat_area.yview)
+
+        # # Área de chat
+        # self.chat_area = scrolledtext.ScrolledText(
+        #     self.root,
+        #     wrap=tk.WORD,
+        #     font=("Arial", 12),
+        #     background="#252525",
+        #     foreground="#252525",
+        #     highlightcolor="#252525",
+        #     highlightbackground="#252525",
+        #     highlightthickness=0,
+        #     borderwidth=0)
+        # self.chat_area.config(state=tk.DISABLED)  # Apenas leitura
+        # self.chat_area.pack(expand=True, fill=tk.BOTH, padx=5, pady=5)
 
         # Área de entrada e botões
         bottom_frame = tk.Frame(self.root,

@@ -175,7 +175,7 @@ class CrossPlatformApp:
         self.input_area = tk.Text(bottom_frame,
                                   wrap=tk.WORD,
                                   height=3,
-                                  font=("Arial", 12),
+                                  font=("Courier New", 14),
                                   background="#353535",
                                   foreground="#ebebeb",
                                   highlightcolor="#252525",
@@ -187,7 +187,12 @@ class CrossPlatformApp:
                                   relief="groove",
                                   insertbackground="white",
                                   state=tk.NORMAL)
-        self.input_area.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=0)
+        self.input_area.pack(side=tk.LEFT,
+                             fill=tk.X,
+                             expand=True,
+                             padx=0,
+                             pady=5)
+        self.input_area.focus_set()
 
         # Configuração para ajustar a largura do input
         self.root.bind("<Configure>", self.adjust_input_width)

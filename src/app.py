@@ -56,8 +56,6 @@ class CrossPlatformApp:
                                 text="↵",
                                 command=self.send_message,
                                 width=button_width,
-                                activebackground=self.root.cget("bg"),
-                                activeforeground="white",
                                 background=self.root.cget("bg"),
                                 foreground="#252525",
                                 borderwidth=0)
@@ -67,8 +65,6 @@ class CrossPlatformApp:
                                text="🎤",
                                command=lambda: print("Mic clicked"),
                                width=button_width,
-                               activebackground=self.root.cget("bg"),
-                               activeforeground="white",
                                background=self.root.cget("bg"),
                                foreground="#252525",
                                borderwidth=0)
@@ -78,8 +74,6 @@ class CrossPlatformApp:
                                  text="🗑️",
                                  command=lambda: print("Trash clicked"),
                                  width=button_width,
-                                 activebackground=self.root.cget("bg"),
-                                 activeforeground="white",
                                  background=self.root.cget("bg"),
                                  foreground="#252525",
                                  borderwidth=0)
@@ -89,8 +83,6 @@ class CrossPlatformApp:
                                     text="🛠",
                                     command=lambda: print("Settings clicked"),
                                     width=button_width,
-                                    activebackground=self.root.cget("bg"),
-                                    activeforeground="white",
                                     background=self.root.cget("bg"),
                                     foreground="#252525",
                                     borderwidth=0)

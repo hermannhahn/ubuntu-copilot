@@ -18,7 +18,7 @@ class CrossPlatformApp:
         self.icon = None
         self.create_tray_icon()
 
-        chat = Chat(self, root)
+        chat = Chat(root)
         chat.root.withdraw()
 
     def create_tray_icon(self):

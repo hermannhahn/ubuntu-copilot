@@ -6,7 +6,6 @@ class Chat:
 
     def __init__(self, root):
         self.root = root
-        self.root.protocol("WM_DELETE_WINDOW", self.hide_window)
         self.root.title("AI Chat")
         self.root.geometry("800x600")
 

@@ -46,6 +46,8 @@ class CrossPlatformApp:
                         background="#242424",
                         troughcolor="#242424",
                         bordercolor="#242424",
+                        border_frame="#242424",
+                        borderwidth=0,
                         arrowcolor="darkblue")
 
         # Barra de rolagem vertical

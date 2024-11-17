@@ -15,7 +15,7 @@ class CrossPlatformApp:
         self.root.geometry("800x600")
 
         # Configuração do fundo do root
-        self.root.configure(bg="lightblue")
+        self.root.configure(bg="#242424")
 
         # Adiciona a interface de chat
         self.create_ui()

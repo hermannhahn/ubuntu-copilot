@@ -39,7 +39,7 @@ class CrossPlatformApp:
                         gripcount=0,
                         background="lightgray",
                         troughcolor="white",
-                        bordercolor="black",
+                        bordercolor="#242424",
                         arrowcolor="darkblue")
 
         # Barra de rolagem vertical

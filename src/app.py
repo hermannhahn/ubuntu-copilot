@@ -99,10 +99,7 @@ class CrossPlatformApp:
                                   height=3,
                                   font=("Arial", 12),
                                   background="#252525",
-                                  foreground="#252525",
-                                  highlightcolor="#252525",
-                                  highlightbackground="#252525",
-                                  highlightthickness=0)
+                                  foreground="#252525")
         self.input_area.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=5)
 
         # Configuração para ajustar a largura do input

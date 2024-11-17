@@ -48,7 +48,7 @@ class CrossPlatformApp:
 
     def show_chat(self, _=None):
         """Mostra a janela principal."""
-        chat.root.deiconify()
+        Chat.root.deiconify()
 
     def hide_window(self):
         """Esconde a janela principal."""

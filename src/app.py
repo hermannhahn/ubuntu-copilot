@@ -103,11 +103,10 @@ class CrossPlatformApp:
                                   highlightbackground="#252525",
                                   highlightthickness=0,
                                   borderwidth=0,
-                                  pady=2,
                                   relief="groove",
                                   insertbackground="white",
                                   state=tk.NORMAL)
-        self.input_area.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=5)
+        self.input_area.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=0)
 
         # Configuração para ajustar a largura do input
         self.root.bind("<Configure>", self.adjust_input_width)

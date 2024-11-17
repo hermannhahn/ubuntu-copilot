@@ -82,7 +82,6 @@ class CrossPlatformApp:
         messagebox.showinfo("Tecla F1 Pressionada", "Você pressionou F1!")
 
     def run(self):
-        self.root.protocol("WM_DELETE_WINDOW", self.hide_window)
         self.root.mainloop()
 
 

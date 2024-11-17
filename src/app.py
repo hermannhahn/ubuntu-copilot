@@ -36,11 +36,16 @@ class CrossPlatformApp:
         self.chat_area.pack(expand=True, fill=tk.BOTH, padx=5, pady=5)
 
         # Área de entrada e botões
-        bottom_frame = tk.Frame(self.root, bg="#252525")
+        bottom_frame = tk.Frame(self.root, bg="#252525", color="white")
         bottom_frame.pack(side=tk.BOTTOM, fill=tk.X, padx=5, pady=5)
 
         # Botões de ação
-        buttons_frame = tk.Frame(bottom_frame, bg="#252525", borderwidth=0)
+        buttons_frame = tk.Frame(bottom_frame,
+                                 bg="#252525",
+                                 borderwidth=0,
+                                 highlightthickness=0,
+                                 highlightbackground="#252525",
+                                 highlightcolor="#252525")
         buttons_frame.pack(side=tk.RIGHT, padx=2)
         buttons_frame.pack_propagate(
             False)  # Evitar redimensionamento automático
@@ -51,6 +56,7 @@ class CrossPlatformApp:
                                 text="↵",
                                 command=self.send_message,
                                 width=button_width,
+                                color="white",
                                 activebackground=self.root.cget("bg"),
                                 activeforeground="white",
                                 background=self.root.cget("bg"),
@@ -62,6 +68,7 @@ class CrossPlatformApp:
                                text="🎤",
                                command=lambda: print("Mic clicked"),
                                width=button_width,
+                               color="white",
                                activebackground=self.root.cget("bg"),
                                activeforeground="white",
                                background=self.root.cget("bg"),
@@ -72,13 +79,25 @@ class CrossPlatformApp:
         trash_button = tk.Button(buttons_frame,
                                  text="🗑️",
                                  command=lambda: print("Trash clicked"),
-                                 width=button_width)
+                                 width=button_width,
+                                 color="white",
+                                 activebackground=self.root.cget("bg"),
+                                 activeforeground="white",
+                                 background=self.root.cget("bg"),
+                                 foreground="#252525",
+                                 borderwidth=0)
         trash_button.grid(row=0, column=2, padx=2)
 
         settings_button = tk.Button(buttons_frame,
                                     text="🛠",
                                     command=lambda: print("Settings clicked"),
-                                    width=button_width)
+                                    width=button_width,
+                                    color="white",
+                                    activebackground=self.root.cget("bg"),
+                                    activeforeground="white",
+                                    background=self.root.cget("bg"),
+                                    foreground="#252525",
+                                    borderwidth=0)
         settings_button.grid(row=0, column=3, padx=2)
 
         # Área de entrada ajustável
@@ -86,6 +105,7 @@ class CrossPlatformApp:
                                   wrap=tk.WORD,
                                   height=3,
                                   font=("Arial", 12),
+                                  color="white",
                                   background="#252525",
                                   foreground="#252525",
                                   borderwidth=0)

@@ -52,7 +52,7 @@ class CrossPlatformApp:
         self.chat_area = tk.Text(border_frame,
                                  wrap=tk.WORD,
                                  yscrollcommand=scrollbar.set,
-                                 font=("Arial", 12),
+                                 font=("Arial", 10),
                                  background="#242424",
                                  foreground="#ebebeb",
                                  highlightcolor="#242424",

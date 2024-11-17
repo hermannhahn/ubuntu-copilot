@@ -103,7 +103,8 @@ class CrossPlatformApp:
                                   highlightbackground="#252525",
                                   highlightthickness=0,
                                   borderwidth=0,
-                                  yscrollcommand=self.chat_area.yview,
+                                  cursor=tk.INSERT,
+                                  bd=0,
                                   state=tk.NORMAL)
         self.input_area.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=5)
 

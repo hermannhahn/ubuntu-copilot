@@ -61,7 +61,12 @@ class CrossPlatformApp:
         mic_button = tk.Button(buttons_frame,
                                text="🎤",
                                command=lambda: print("Mic clicked"),
-                               width=button_width)
+                               width=button_width,
+                               activebackground=self.root.cget("bg"),
+                               activeforeground="white",
+                               background=self.root.cget("bg"),
+                               foreground="#252525",
+                               borderwidth=0)
         mic_button.grid(row=0, column=1, padx=2)
 
         trash_button = tk.Button(buttons_frame,

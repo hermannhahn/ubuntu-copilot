@@ -62,9 +62,6 @@ class CrossPlatformApp:
                                 width=button_width,
                                 foreground="#252525",
                                 activebackground="#b5bec7",
-                                padx=5,
-                                pady=5,
-                                background=self.root.cget("bg"),
                                 borderwidth=0)
         send_button.grid(row=0, column=0, padx=2)
 

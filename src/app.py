@@ -53,7 +53,7 @@ class CrossPlatformApp:
         settings_button.grid(row=0, column=3, padx=2)
 
         # Área de entrada ajustável
-        self.input_area = tk.Text(bottom_frame, wrap=tk.WORD, height=3, font=("Arial", 12))
+        self.input_area = tk.Text(bottom_frame, wrap=tk.WORD, height=3, font=("Arial", 12), background="#252525", foreground="#252525", borderwidth=0)
         self.input_area.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=5)
 
         # Configuração para ajustar a largura do input

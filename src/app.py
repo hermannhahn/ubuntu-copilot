@@ -111,8 +111,8 @@ class CrossPlatformApp:
                                 text="↵",
                                 command=self.send_message,
                                 width=button_width,
-                                foreground="#252525",
-                                activebackground="#b5bec7",
+                                foreground="#b5bec7",
+                                activebackground="#353535",
                                 borderwidth=0)
         send_button.grid(row=0, column=0, padx=2)
 
@@ -120,8 +120,8 @@ class CrossPlatformApp:
                                text="🎤",
                                command=lambda: print("Mic clicked"),
                                width=button_width,
-                               foreground="#252525",
-                               activebackground="#b5bec7",
+                               foreground="#b5bec7",
+                               activebackground="#353535",
                                borderwidth=0)
         mic_button.grid(row=0, column=1, padx=2)
 
@@ -129,8 +129,8 @@ class CrossPlatformApp:
                                  text="🗑️",
                                  command=lambda: print("Trash clicked"),
                                  width=button_width,
-                                 foreground="#252525",
-                                 activebackground="#b5bec7",
+                                 foreground="#b5bec7",
+                                 activebackground="#353535",
                                  borderwidth=0)
         trash_button.grid(row=0, column=2, padx=2)
 
@@ -138,8 +138,8 @@ class CrossPlatformApp:
                                     text="🛠",
                                     command=lambda: print("Settings clicked"),
                                     width=button_width,
-                                    foreground="#252525",
-                                    activebackground="#b5bec7",
+                                    foreground="#b5bec7",
+                                    activebackground="#353535",
                                     borderwidth=0)
         settings_button.grid(row=0, column=3, padx=2)
 

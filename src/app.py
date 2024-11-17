@@ -30,13 +30,7 @@ class CrossPlatformApp:
     def create_ui(self):
         """Cria a interface gráfica do chat."""
         # Borda simulada
-        border_frame = tk.Frame(self.root,
-                                bg="#242424",
-                                bd=2,
-                                borderwidth=0,
-                                highlightthickness=0,
-                                highlightbackground="#242424",
-                                highlightcolor="#242424")
+        border_frame = tk.Frame(self.root, bg="#242424", bd=2)
         border_frame.pack(fill=tk.BOTH, expand=True, padx=2, pady=2)
 
         # Estilo da barra de rolagem

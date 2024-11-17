@@ -97,7 +97,7 @@ class CrossPlatformApp:
                                   wrap=tk.WORD,
                                   height=3,
                                   font=("Arial", 12),
-                                  background="#292929",
+                                  background="#353535",
                                   foreground="#ebebeb",
                                   highlightcolor="#252525",
                                   highlightbackground="#252525",

@@ -114,9 +114,7 @@ class CrossPlatformApp:
                                 background="#353535",
                                 foreground="#f1f1f1",
                                 activebackground="#454545",
-                                activeforeground="#f1f1f1",
-                                border=0,
-                                borderwidth=0)
+                                activeforeground="#f1f1f1")
         send_button.grid(row=0, column=0, padx=2)
 
         mic_button = tk.Button(buttons_frame,

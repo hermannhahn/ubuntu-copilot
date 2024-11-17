@@ -34,7 +34,7 @@ class CrossPlatformApp:
         bottom_frame.pack(side=tk.BOTTOM, fill=tk.X, padx=5, pady=5)
 
         # Botões de ação
-        buttons_frame = tk.Frame(bottom_frame, bg="#252525", borderwidth=0, foreground="#252525")
+        buttons_frame = tk.Frame(bottom_frame, bg="#252525", borderwidth=0)
         buttons_frame.pack(side=tk.RIGHT, padx=2)
         buttons_frame.pack_propagate(False)  # Evitar redimensionamento automático
 

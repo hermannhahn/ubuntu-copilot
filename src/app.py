@@ -31,7 +31,7 @@ class CrossPlatformApp:
         """Cria a interface gráfica do chat."""
         # Borda simulada
         border_frame = tk.Frame(self.root)
-        border_frame.pack(fill=tk.BOTH, expand=True, padx=2, pady=2)
+        border_frame.pack(fill=tk.BOTH, expand=True)
 
         # Estilo da barra de rolagem
         style = ttk.Style()
@@ -64,7 +64,7 @@ class CrossPlatformApp:
                                  pady=5,
                                  relief="groove",
                                  borderwidth=0)
-        self.chat_area.pack(expand=True, fill=tk.BOTH, padx=5, pady=5)
+        self.chat_area.pack(expand=True, fill=tk.BOTH)
         scrollbar.config(command=self.chat_area.yview)
 
         # # Área de chat

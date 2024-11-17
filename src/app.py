@@ -62,7 +62,6 @@ class CrossPlatformApp:
                                 width=button_width,
                                 foreground="#252525",
                                 activebackground="#b5bec7",
-                                border=1,
                                 borderwidth=0)
         send_button.grid(row=0, column=0, padx=2)
 
@@ -99,7 +98,11 @@ class CrossPlatformApp:
                                   height=3,
                                   font=("Arial", 12),
                                   background="#252525",
-                                  foreground="#252525")
+                                  foreground="#252525",
+                                  highlightcolor="#252525",
+                                  highlightbackground="#252525",
+                                  highlightthickness=0,
+                                  borderwidth=0)
         self.input_area.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=5)
 
         # Configuração para ajustar a largura do input

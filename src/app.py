@@ -111,10 +111,14 @@ class CrossPlatformApp:
                                 text="↵",
                                 command=self.send_message,
                                 width=button_width,
+                                highlightbackground=None,
+                                highlightcolor=None,
+                                highlightthickness=0,
                                 background="#353535",
                                 foreground="#f1f1f1",
                                 activebackground="#454545",
-                                activeforeground="#f1f1f1")
+                                activeforeground="#f1f1f1",
+                                borderwidth=0)
         send_button.grid(row=0, column=0, padx=2)
 
         mic_button = tk.Button(buttons_frame,

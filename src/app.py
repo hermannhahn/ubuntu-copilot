@@ -38,7 +38,7 @@ class CrossPlatformApp:
         style.configure("Custom.Vertical.TScrollbar",
                         gripcount=0,
                         background="#242424",
-                        troughcolor="white",
+                        troughcolor="#242424",
                         bordercolor="#242424",
                         arrowcolor="darkblue")
 

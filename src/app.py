@@ -14,16 +14,16 @@ class CrossPlatformApp:
         self.root.title("AI Chat")
         self.root.geometry("800x600")
 
-        # Configuração do fundo do root
+        # App background
         self.root.configure(bg="#242424")
 
-        # Adiciona a interface de chat
+        # Create UI
         self.create_ui()
 
-        # Adiciona o monitor de teclado
+        # Keyboard events
         self.start_keyboard_monitor()
 
-        # Ícone do tray
+        # Tray icon
         self.icon = None
         self.create_tray_icon()
 
@@ -222,9 +222,14 @@ class CrossPlatformApp:
 
     def create_tray_icon(self):
         """Cria o ícone do tray com menu."""
+        # Gera o ícone
         icon_image = self.generate_icon_image()
+
+        # Cria o menu com ações
         menu = Menu(MenuItem("Open", self.show_window),
                     MenuItem("Quit", self.quit_app))
+
+        # Cria o ícone da bandeja
         self.icon = Icon("AI Chat", icon_image, menu=menu)
 
         # Inicia o tray icon em uma thread separada

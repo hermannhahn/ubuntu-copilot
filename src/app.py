@@ -41,7 +41,7 @@ class CrossPlatformApp:
     def generate_icon_image(self):
         """Gera um ícone simples usando PIL."""
         size = (64, 64)
-        image = Image.new("RGB", size, color="blue")
+        image = Image.new("RGB", size, color="lightblue")
         draw = ImageDraw.Draw(image)
         draw.ellipse((16, 16, 48, 48), fill="white", outline="black")
         return image

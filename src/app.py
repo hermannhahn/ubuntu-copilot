@@ -33,24 +33,38 @@ class CrossPlatformApp:
         bottom_frame = tk.Frame(self.root)
         bottom_frame.pack(side=tk.BOTTOM, fill=tk.X, padx=5, pady=5)
 
-        self.input_area = tk.Text(bottom_frame, wrap=tk.WORD, height=3, font=("Arial", 12))
-        self.input_area.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=5)
-
         # Botões de ação
         buttons_frame = tk.Frame(bottom_frame)
         buttons_frame.pack(side=tk.RIGHT, padx=2)
+        buttons_frame.pack_propagate(False)  # Evitar redimensionamento automático
 
-        send_button = tk.Button(buttons_frame, text="↵", command=self.send_message)
+        # Criar botões com tamanhos mínimos
+        button_width = 5  # Largura mínima dos botões
+        send_button = tk.Button(buttons_frame, text="↵", command=self.send_message, width=button_width)
         send_button.grid(row=0, column=0, padx=2)
 
-        mic_button = tk.Button(buttons_frame, text="🎤", command=lambda: print("Mic clicked"))
+        mic_button = tk.Button(buttons_frame, text="🎤", command=lambda: print("Mic clicked"), width=button_width)
         mic_button.grid(row=0, column=1, padx=2)
 
-        trash_button = tk.Button(buttons_frame, text="🗑️", command=lambda: print("Trash clicked"))
+        trash_button = tk.Button(buttons_frame, text="🗑️", command=lambda: print("Trash clicked"), width=button_width)
         trash_button.grid(row=0, column=2, padx=2)
 
-        settings_button = tk.Button(buttons_frame, text="🛠", command=lambda: print("Settings clicked"))
+        settings_button = tk.Button(buttons_frame, text="🛠", command=lambda: print("Settings clicked"), width=button_width)
         settings_button.grid(row=0, column=3, padx=2)
+
+        # Área de entrada ajustável
+        self.input_area = tk.Text(bottom_frame, wrap=tk.WORD, height=3, font=("Arial", 12))
+        self.input_area.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=5)
+
+        # Configuração para ajustar a largura do input
+        self.root.bind("<Configure>", self.adjust_input_width)
+
+    def adjust_input_width(self, event=None):
+        """Ajusta a largura do input_area conforme o tamanho da janela."""
+        button_area_width = 5 * 4 * 10 + 20  # Largura total dos botões (+ margem)
+        total_width = self.root.winfo_width()
+        input_width = max(total_width - button_area_width, 100)  # Garante largura mínima
+        self.input_area.config(width=input_width)
 
     def send_message(self):
         """Envia a mensagem digitada pelo usuário."""

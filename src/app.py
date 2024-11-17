@@ -102,7 +102,9 @@ class CrossPlatformApp:
                                   highlightcolor="#252525",
                                   highlightbackground="#252525",
                                   highlightthickness=0,
-                                  borderwidth=0)
+                                  borderwidth=0,
+                                  yscrollcommand=self.chat_area.yview,
+                                  state=tk.NORMAL)
         self.input_area.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=5)
 
         # Configuração para ajustar a largura do input

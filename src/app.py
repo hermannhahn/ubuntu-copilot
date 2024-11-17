@@ -34,7 +34,7 @@ class CrossPlatformApp:
         bottom_frame.pack(side=tk.BOTTOM, fill=tk.X, padx=5, pady=5)
 
         self.input_area = tk.Text(bottom_frame, wrap=tk.WORD, height=3, font=("Arial", 12))
-        self.input_area.pack(side=tk.LEFT, fill=tk.X, padx=5)
+        self.input_area.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=5)
 
         # Botões de ação
         button_frame = tk.Frame(bottom_frame)

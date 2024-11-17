@@ -98,8 +98,10 @@ class CrossPlatformApp:
                                  borderwidth=0,
                                  highlightthickness=0,
                                  highlightbackground="#252525",
-                                 highlightcolor="#252525")
-        buttons_frame.pack(side=tk.RIGHT, padx=5)
+                                 highlightcolor="#252525",
+                                 padx=5,
+                                 pady=5)
+        buttons_frame.pack(side=tk.RIGHT)
         buttons_frame.pack_propagate(
             False)  # Evitar redimensionamento automático
 

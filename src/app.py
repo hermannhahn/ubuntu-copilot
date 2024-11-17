@@ -52,7 +52,14 @@ class CrossPlatformApp:
         # Área de texto com rolagem
         self.chat_area = tk.Text(border_frame,
                                  wrap=tk.WORD,
-                                 yscrollcommand=scrollbar.set)
+                                 yscrollcommand=scrollbar.set,
+                                 font=("Arial", 12),
+                                 background="#242424",
+                                 foreground="#ebebeb",
+                                 highlightcolor="#242424",
+                                 highlightbackground="#242424",
+                                 highlightthickness=0,
+                                 borderwidth=0)
         self.chat_area.pack(expand=True, fill=tk.BOTH)
         scrollbar.config(command=self.chat_area.yview)
 

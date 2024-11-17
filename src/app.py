@@ -126,30 +126,48 @@ class CrossPlatformApp:
         mic_button = tk.Button(buttons_frame,
                                text="🎤",
                                command=lambda: print("Mic clicked"),
-                               width=button_width,
+                               font=("Courier New", 18, "bold"),
+                               width=2,
+                               height=2,
+                               highlightbackground=None,
+                               highlightcolor=None,
+                               highlightthickness=0,
                                background="#353535",
                                foreground="#f1f1f1",
                                activebackground="#454545",
+                               activeforeground="#f1f1f1",
                                borderwidth=0)
         mic_button.grid(row=0, column=1, padx=2)
 
         trash_button = tk.Button(buttons_frame,
                                  text="🗑️",
                                  command=lambda: print("Trash clicked"),
-                                 width=button_width,
+                                 font=("Courier New", 18, "bold"),
+                                 width=2,
+                                 height=2,
+                                 highlightbackground=None,
+                                 highlightcolor=None,
+                                 highlightthickness=0,
                                  background="#353535",
                                  foreground="#f1f1f1",
                                  activebackground="#454545",
+                                 activeforeground="#f1f1f1",
                                  borderwidth=0)
         trash_button.grid(row=0, column=2, padx=2)
 
         settings_button = tk.Button(buttons_frame,
                                     text="🛠",
                                     command=lambda: print("Settings clicked"),
-                                    width=button_width,
+                                    font=("Courier New", 18, "bold"),
+                                    width=2,
+                                    height=2,
+                                    highlightbackground=None,
+                                    highlightcolor=None,
+                                    highlightthickness=0,
                                     background="#353535",
                                     foreground="#f1f1f1",
                                     activebackground="#454545",
+                                    activeforeground="#f1f1f1",
                                     borderwidth=0)
         settings_button.grid(row=0, column=3, padx=2)
 

@@ -64,7 +64,7 @@ class CrossPlatformApp:
                                  pady=5,
                                  relief="groove",
                                  borderwidth=0)
-        self.chat_area.pack(expand=True, fill=tk.BOTH)
+        self.chat_area.pack(expand=True, fill=tk.BOTH, padx=5, pady=5)
         scrollbar.config(command=self.chat_area.yview)
 
         # # Área de chat

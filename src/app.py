@@ -44,7 +44,7 @@ class CrossPlatformApp:
         image = Image.new("RGB", size, color="lightblue")
         draw = ImageDraw.Draw(image)
         # simbolo parecido com o simbolo do google assistant
-        draw.rectangle((16, 16, 48, 48), fill="blue")
+        draw.rectangle((16, 16, 48, 48))
         draw.ellipse((20, 20, 44, 44), fill="yellow")
         draw.ellipse((24, 24, 40, 40), fill="red")
         # draw.ellipse((16, 16, 48, 48), fill="blue", outline="black")

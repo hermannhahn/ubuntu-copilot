@@ -45,7 +45,7 @@ class CrossPlatformApp:
         draw = ImageDraw.Draw(image)
         # simbolo parecido com o simbolo do google assistant
         draw.ellipse((16, 16, 48, 48), fill="#4d7aa1")
-        draw.ellipse((26, 26, 33, 33), fill="red")
+        draw.ellipse((15, 15, 33, 33), fill="red")
         return image
 
     def show_chat(self, _=None):

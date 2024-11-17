@@ -34,11 +34,11 @@ class CrossPlatformApp:
         bottom_frame.pack(side=tk.BOTTOM, fill=tk.X, padx=5, pady=5)
 
         self.input_area = tk.Text(bottom_frame, wrap=tk.WORD, height=3, font=("Arial", 12))
-        self.input_area.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=5)
+        self.input_area.pack(side=tk.LEFT, fill=tk.X, padx=5)
 
         # Botões de ação
         button_frame = tk.Frame(bottom_frame)
-        button_frame.pack(side=tk.RIGHT, fill=tk.X, expand=True, padx=2)
+        button_frame.pack(side=tk.RIGHT, fill=tk.X, padx=2)
 
         send_button = tk.Button(button_frame, text="↵", command=self.send_message)
         send_button.grid(row=0, column=0, padx=2)

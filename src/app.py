@@ -41,12 +41,12 @@ class CrossPlatformApp:
     def generate_icon_image(self):
         """Gera um ícone simples usando PIL."""
         size = (64, 64)
-        image = Image.new("RGB", size, color="#4d7aa1")
+        image = Image.new("RGB", size)
         draw = ImageDraw.Draw(image)
         # simbolo parecido com o simbolo do google assistant
         draw.rectangle((16, 16, 48, 48))
-        draw.ellipse((20, 20, 44, 44), fill="yellow")
-        draw.ellipse((24, 24, 40, 40), fill="red")
+        draw.ellipse((20, 20, 44, 44), fill="4d7aa1")
+        draw.ellipse((24, 24, 40, 40), fill="orange")
         # draw.ellipse((16, 16, 48, 48), fill="blue", outline="black")
         return image
 

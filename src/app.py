@@ -33,6 +33,8 @@ class CrossPlatformApp:
         border_frame = tk.Frame(self.root,
                                 bg="#242424",
                                 bd=2,
+                                padx=2,
+                                pady=2,
                                 borderwidth=0,
                                 highlightthickness=0,
                                 highlightbackground="#242424",

@@ -40,13 +40,13 @@ class CrossPlatformApp:
         self.chat_area.pack(expand=True, fill=tk.BOTH, padx=5, pady=5)
 
         # Área de entrada e botões
-        bottom_frame = tk.Frame(self.root, bg="#252525")
+        bottom_frame = tk.Frame(self.root, bg="#252525", padx=5, pady=5)
         bottom_frame.pack(side=tk.BOTTOM, fill=tk.X, padx=5, pady=5)
 
         # Botões de ação
         buttons_frame = tk.Frame(bottom_frame,
                                  bg="#252525",
-                                 borderwidth=2,
+                                 borderwidth=0,
                                  highlightthickness=0,
                                  highlightbackground="#252525",
                                  highlightcolor="#252525")

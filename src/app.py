@@ -30,7 +30,7 @@ class CrossPlatformApp:
         self.chat_area.pack(expand=True, fill=tk.BOTH, padx=5, pady=5)
 
         # Área de entrada e botões
-        bottom_frame = tk.Frame(self.root, bg="#353535")
+        bottom_frame = tk.Frame(self.root, bg="#313131")
         bottom_frame.pack(side=tk.BOTTOM, fill=tk.X, padx=5, pady=5)
 
         # Botões de ação

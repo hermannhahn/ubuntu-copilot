@@ -103,7 +103,7 @@ class CrossPlatformApp:
                                   highlightbackground="#252525",
                                   highlightthickness=0,
                                   borderwidth=0,
-                                  insertbackground="white"
+                                  insertbackground="white",
                                   state=tk.NORMAL)
         self.input_area.pack(side=tk.LEFT, fill=tk.X, expand=True, padx=5)
 

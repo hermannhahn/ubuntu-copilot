@@ -15,7 +15,11 @@ class CrossPlatformApp:
         self.root.geometry("800x600")
 
         # Configuração do fundo do root
-        self.root.configure(bg="#242424")
+        self.root.configure(bg="#242424",
+                            highlightbackground="#242424",
+                            highlightcolor="#242424",
+                            highlightthickness=0,
+                            borderwidth=0)
 
         # Adiciona a interface de chat
         self.create_ui()
@@ -33,8 +37,6 @@ class CrossPlatformApp:
         border_frame = tk.Frame(self.root,
                                 bg="#242424",
                                 bd=2,
-                                padx=2,
-                                pady=2,
                                 borderwidth=0,
                                 highlightthickness=0,
                                 highlightbackground="#242424",

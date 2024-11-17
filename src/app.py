@@ -56,7 +56,8 @@ class CrossPlatformApp:
                                 text="↵",
                                 command=self.send_message,
                                 width=button_width,
-                                foreground="#b5bec7",
+                                foreground="#252525",
+                                activebackground="#b5bec7"
                                 borderwidth=0)
         send_button.grid(row=0, column=0, padx=2)
 

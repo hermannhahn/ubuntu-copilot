@@ -110,7 +110,7 @@ class CrossPlatformApp:
         send_button = tk.Button(buttons_frame,
                                 text="↵",
                                 command=self.send_message,
-                                font=("Courier New", 19, "bold"),
+                                font=("Courier New", 18, "bold"),
                                 width=2,
                                 height=2,
                                 highlightbackground=None,

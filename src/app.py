@@ -112,7 +112,7 @@ class CrossPlatformApp:
                                 command=self.send_message,
                                 width=button_width,
                                 background="#353535",
-                                foreground="#b5bec7",
+                                foreground="#f1f1f1",
                                 activebackground="#454545",
                                 borderwidth=0)
         send_button.grid(row=0, column=0, padx=2)
@@ -122,7 +122,7 @@ class CrossPlatformApp:
                                command=lambda: print("Mic clicked"),
                                width=button_width,
                                background="#353535",
-                               foreground="#b5bec7",
+                               foreground="#f1f1f1",
                                activebackground="#454545",
                                borderwidth=0)
         mic_button.grid(row=0, column=1, padx=2)
@@ -132,7 +132,7 @@ class CrossPlatformApp:
                                  command=lambda: print("Trash clicked"),
                                  width=button_width,
                                  background="#353535",
-                                 foreground="#b5bec7",
+                                 foreground="#f1f1f1",
                                  activebackground="#454545",
                                  borderwidth=0)
         trash_button.grid(row=0, column=2, padx=2)
@@ -142,7 +142,7 @@ class CrossPlatformApp:
                                     command=lambda: print("Settings clicked"),
                                     width=button_width,
                                     background="#353535",
-                                    foreground="#b5bec7",
+                                    foreground="#f1f1f1",
                                     activebackground="#454545",
                                     borderwidth=0)
         settings_button.grid(row=0, column=3, padx=2)

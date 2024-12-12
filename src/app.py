@@ -22,6 +22,10 @@ class CrossPlatformApp:
 
         self.chat = Chat(root)
         self.chat.root.withdraw()
+        
+        # Inicializa a janela principal
+        self.root.protocol("WM_DELETE_WINDOW", self.hide_window)
+        self.root.mainloop()
 
     def create_tray_icon(self):
         """Cria o ícone do tray com menu."""
@@ -89,8 +93,9 @@ class CrossPlatformApp:
         self.root.protocol("WM_DELETE_WINDOW", self.hide_window)
         self.root.mainloop()
 
-
 if __name__ == "__main__":
     root = tk.Tk()
-    app = CrossPlatformApp()
+    root.withdraw()  # Esconde a janela principal inicialmente
+    app = CrossPlatformApp(root)
     app.run()
+

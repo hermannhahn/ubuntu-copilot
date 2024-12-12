@@ -92,5 +92,5 @@ class CrossPlatformApp:
 
 if __name__ == "__main__":
     root = tk.Tk()
-    app = CrossPlatformApp(root)
+    app = CrossPlatformApp()
     app.run()

@@ -10,7 +10,7 @@ from chat import Chat
 
 class CrossPlatformApp:
 
-    def __init__(self, root):
+    def __main__(self, root):
         self.root = root
 
         # Keyboard events

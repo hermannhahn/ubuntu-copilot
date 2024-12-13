@@ -23,7 +23,6 @@ class ChatWindow:
             # open popup with alert message
             dialog = Gtk.MessageDialog(
                 transient_for=None,
-                flags=0,
                 message_type=Gtk.MessageType.WARNING,
                 buttons=Gtk.ButtonsType.OK,
                 text="Por favor, configure as credenciais antes de continuar.",

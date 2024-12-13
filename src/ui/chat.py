@@ -33,7 +33,6 @@ class ChatWindow:
         
         if not self.api_key or not self.project_id or not self.region:
             dialog.show()
-            return
         else:
             # Layout principal
             self.layout = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)

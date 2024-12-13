@@ -9,12 +9,6 @@ from settings import load_api_key, load_project_id, load_region, SettingsWindow
 import vertexai
 from vertexai.generative_models import GenerativeModel, SafetySetting, Part
 
-import gi
-import asyncio
-from gi.repository import Gtk, GLib
-
-gi.require_version("Gtk", "3.0")
-
 # Integração do loop de eventos do asyncio com o GTK
 def integrate_asyncio_with_glib():
     loop = asyncio.get_event_loop()

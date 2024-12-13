@@ -29,7 +29,7 @@ class App(Gtk.Window):
         chat_scroll = Gtk.ScrolledWindow()
         chat_scroll.set_vexpand(True)
         chat_scroll.add(self.chat_display)
-        layout.pack_start(chat_scroll, True, True, 0)
+        layout.pack_start(chat_scroll, True, True, 10)
         
         # Bottom
         bottom = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=2)

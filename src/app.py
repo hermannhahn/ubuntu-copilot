@@ -1,19 +1,25 @@
 import gi
-gi.require_version("Gtk", "3.0")
+gi.require_version("Gtk", "4.0")
 from gi.repository import Gtk
 from ui.chat import ChatWindow
 
-class App(Gtk.Window):
-    def __init__(self):
-        super().__init__(title="Ubuntu Co-Pilot Chatbot")
+class App(Gtk.ApplicationWindow):
+    def __init__(self, app):
+        super().__init__(application=app, title="Ubuntu Co-Pilot Chatbot")
         self.set_default_size(600, 400)
 
         # Layout principal (chat)
         self.chat = ChatWindow()
-        self.add(self.chat.layout)
+        self.set_child(self.chat.layout)
+
+class MyApp(Gtk.Application):
+    def __init__(self):
+        super().__init__()
+
+    def do_activate(self):
+        win = App(self)
+        win.present()
 
 if __name__ == "__main__":
-    app = App()
-    app.connect("destroy", Gtk.main_quit)
-    app.show_all()
-    Gtk.main()
+    app = MyApp()
+    app.run()

@@ -68,7 +68,7 @@ class ChatBotApp(Gtk.Window):
                     {"role": "user", "content": message}
                 ],
                 stream=True,
-                model="gpt-4o"
+                model="gpt-3.5-turbo"
             )
             
             #response_content = stream["choices"][0]["message"]["content"]

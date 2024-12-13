@@ -42,9 +42,6 @@ class App(Gtk.Window):
         # Campo de entrada
         self.entry = Gtk.Entry()
         self.entry.set_placeholder_text("Digite sua mensagem...")
-        self.entry.set_left_margin(10)
-        self.entry.set_right_margin(10)
-        self.entry.set_bottom_margin(10)
         self.entry.connect("activate", self.on_message_sent)
         bottom.pack_start(self.entry, True, True, 0)
 

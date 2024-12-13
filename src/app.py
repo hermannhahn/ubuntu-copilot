@@ -1,7 +1,7 @@
 import os 
 import gi
 import asyncio
-from settings import load_api_key, load_project_id, load_region, load_endpoint_id, SettingsWindow
+from settings import load_api_key, load_project_id, load_region, SettingsWindow
 import google.generativeai as genai
 from google.cloud import aiplatform
 import base64
@@ -57,11 +57,11 @@ class App(Gtk.Window):
         bottom.pack_start(settings_button, False, False, 0)
 
         # Configuração do Vertex AI
-        api_key = load_api_key()
-        genai.configure(api_key=api_key)
+        self.api_key = load_api_key()
+        genai.configure(api_key=self.api_key)
         self.project_id = load_project_id()
         self.region = load_region()
-        self.endpoint_id = load_endpoint_id()
+        #self.endpoint_id = load_endpoint_id()
         vertexai.init(project=self.project_id, location=self.region)
         self.model = GenerativeModel("gemini-1.5-flash-002")
 

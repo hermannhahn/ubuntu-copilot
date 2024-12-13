@@ -99,7 +99,11 @@ class SettingsWindow(Gtk.Window):
             text="Configurações salvas com sucesso!",
         )
         dialog.show()
-        dialog.connect("response", lambda d, r: d.close())
+        dialog.connect("response", lambda d, r: self.close(d))
+
+    def close(self, d):
+        d.close()
+        self.destroy()
 
 if __name__ == "__main__":
     app = Gtk.Application()

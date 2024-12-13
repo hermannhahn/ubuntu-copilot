@@ -26,9 +26,7 @@ class ChatWindow:
                 text="Por favor, configure as credenciais antes de continuar.",
             )
             dialog.show()
-            dialog.connect("response", lambda d, r: d.close())
-            # open settings
-            self.settings_window.show()
+            dialog.connect("response", lambda d, r: self.settings_window.show())
 
         genai.configure(api_key=self.api_key)
         vertexai.init(project=self.project_id, location=self.region)

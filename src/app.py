@@ -1,6 +1,12 @@
 import gi
+import openai
+from settings import load_api_key
+
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
+
+# Configure a chave de API OpenAI carregada do arquivo de configurações
+openai.api_key = load_api_key()
 
 class ChatBotApp(Gtk.Window):
     def __init__(self):
@@ -42,7 +48,7 @@ class ChatBotApp(Gtk.Window):
             buffer = self.chat_display.get_buffer()
             buffer.insert(buffer.get_end_iter(), f"Você: {message}\n")
 
-            # Aqui você chamaria a API OpenAI (substitua por uma função real)
+            # Chama a API OpenAI
             response = self.get_bot_response(message)
             buffer.insert(buffer.get_end_iter(), f"Bot: {response}\n")
 
@@ -50,8 +56,19 @@ class ChatBotApp(Gtk.Window):
         self.entry.set_text("")
 
     def get_bot_response(self, message):
-        # Simula uma resposta do bot (substitua pela integração com a API OpenAI)
-        return f"Sim, entendi '{message}'!"
+        try:
+            # Solicitação para a API OpenAI
+            response = openai.ChatCompletion.create(
+                model="gpt-3.5-turbo",  # Modelo pode ser ajustado conforme necessário
+                messages=[
+                    {"role": "system", "content": "Você é um assistente útil."},
+                    {"role": "user", "content": message}
+                ]
+            )
+            # Retorna o conteúdo da resposta
+            return response['choices'][0]['message']['content'].strip()
+        except Exception as e:
+            return f"Erro ao obter resposta: {e}"
 
 if __name__ == "__main__":
     app = ChatBotApp()

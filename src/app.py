@@ -70,12 +70,12 @@ class App(Gtk.Window):
         message = self.entry.get_text()
         # Limpa o campo de entrada
         self.entry.set_text("")
+        # Exibe a mensagem no chat
+        buffer = self.chat_display.get_buffer()
+        buffer.insert(buffer.get_end_iter(), f"Você: {message}\n")
 
         # Verifica se a mensagem não está vazia
         if message.strip():
-            # Exibe a mensagem no chat
-            buffer = self.chat_display.get_buffer()
-            buffer.insert(buffer.get_end_iter(), f"Você: {message}\n")
 
             # Chama o Vertex AI para obter a resposta
             jsonResponse = self.model.generate_content(message)

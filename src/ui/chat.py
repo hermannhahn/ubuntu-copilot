@@ -52,11 +52,11 @@ class ChatWindow:
             self.chat_display.set_margin_end(10)
 
             # Scroll para a área de chat
-            chat_scroll = Gtk.ScrolledWindow()
-            chat_scroll.set_vexpand(True)
+            self.chat_scroll = Gtk.ScrolledWindow()
+            self.chat_scroll.set_vexpand(True)
 
             # Bottom
-            bottom = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=5)
+            self.bottom = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=5)
 
             # Campo de entrada
             self.entry = Gtk.Entry()
@@ -64,20 +64,21 @@ class ChatWindow:
             self.entry.connect("activate", self.on_message_sent)
 
             # Botão de enviar
-            send_button = Gtk.Button(label="Enviar")
-            send_button.connect("clicked", self.on_message_sent)
+            self.send_button = Gtk.Button(label="Enviar")
+            self.send_button.connect("clicked", self.on_message_sent)
 
             # Botão para abrir configurações
-            settings_button = Gtk.Button(label="⚙")
-            settings_button.connect("clicked", self.open_settings)
+            self.settings_button = Gtk.Button(label="⚙")
+            self.settings_button.connect("clicked", self.open_settings)
             
-            chat_scroll.set_child(self.chat_display)
-            self.layout.append(chat_scroll)
-            self.layout.append(bottom)
-            bottom.append(self.entry)
-            bottom.append(send_button)
-            bottom.append(settings_button)
-
+    def build(self):
+            self.chat_scroll.set_child(self.chat_display)
+            self.layout.append(self.chat_scroll)
+            self.layout.append(self.bottom)
+            self.bottom.append(self.entry)
+            self.bottom.append(self.send_button)
+            self.bottom.append(self.settings_button)
+            
     def close_alert(self, d):
         d.close()
         self.settings_window.show()

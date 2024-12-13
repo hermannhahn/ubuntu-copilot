@@ -16,8 +16,11 @@ class App(Gtk.Window):
         self.set_default_size(600, 400)
 
         # Layout principal
-        layout = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        layout = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
         self.add(layout)
+        bottom = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        layout.pack_start(bottom, False, False, 0)
+
 
         # Área de exibição do chat
         self.chat_display = Gtk.TextView()

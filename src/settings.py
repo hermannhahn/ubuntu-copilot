@@ -43,17 +43,17 @@ def load_region():
             return json.load(config_file).get("region", "")
     return ""
 
-def save_endpoint_id(endpoint_id):
-    """Salva o ID do endpoint no arquivo de configuração."""
-    with open(CONFIG_FILE, "w") as config_file:
-        json.dump({"endpoint_id": endpoint_id}, config_file)
+# def save_endpoint_id(endpoint_id):
+#     """Salva o ID do endpoint no arquivo de configuração."""
+#     with open(CONFIG_FILE, "w") as config_file:
+#         json.dump({"endpoint_id": endpoint_id}, config_file)
 
-def load_endpoint_id():
-    """Carrega o ID do endpoint do arquivo de configuração, se existir."""
-    if os.path.exists(CONFIG_FILE):
-        with open(CONFIG_FILE, "r") as config_file:
-            return json.load(config_file).get("endpoint_id", "")
-    return ""
+# def load_endpoint_id():
+#     """Carrega o ID do endpoint do arquivo de configuração, se existir."""
+#     if os.path.exists(CONFIG_FILE):
+#         with open(CONFIG_FILE, "r") as config_file:
+#             return json.load(config_file).get("endpoint_id", "")
+#     return ""
 
 class SettingsWindow(Gtk.Window):
     def __init__(self):
@@ -83,10 +83,10 @@ class SettingsWindow(Gtk.Window):
         layout.pack_start(region_entry, False, False, 0)
 
         # Campo para inserir o Endpoint ID
-        endpoint_id_entry = Gtk.Entry()
-        endpoint_id_entry.set_placeholder_text("Insira seu Google Cloud Endpoint ID")
-        endpoint_id_entry.set_text(load_endpoint_id())
-        layout.pack_start(endpoint_id_entry, False, False, 0)
+        #endpoint_id_entry = Gtk.Entry()
+        #endpoint_id_entry.set_placeholder_text("Insira seu Google Cloud Endpoint ID")
+        #endpoint_id_entry.set_text(load_endpoint_id())
+        #layout.pack_start(endpoint_id_entry, False, False, 0)
 
         # Botão de salvar
         save_button = Gtk.Button(label="Salvar")

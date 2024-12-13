@@ -27,8 +27,8 @@ class ChatWindow:
                 buttons=Gtk.ButtonsType.OK,
                 text="Por favor, configure as credenciais antes de continuar.",
             )
-            dialog.run()
-            dialog.destroy()
+            dialog.show()
+            dialog.connect("response", lambda d, r: d.close())
 
         genai.configure(api_key=self.api_key)
         vertexai.init(project=self.project_id, location=self.region)

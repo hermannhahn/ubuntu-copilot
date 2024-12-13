@@ -82,7 +82,8 @@ class ChatWindow:
         #output = jsonResponse.result.candidates[0].output
         for i in range(0, len(response), chunk_size):
             chunk = response[i:i + chunk_size]
-            self.buffer.insert(self.buffer.get_end_iter(), chunk)
+            self.buffer.insert(self.buffer.get_end_iter(), f"Bot: {response}\n")
+            self.buffer.insert(self.buffer.get_end_iter(), f"Bot: {chunk}\n")
             yield chunk
 
     def open_settings(self, widget):

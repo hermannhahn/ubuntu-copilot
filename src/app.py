@@ -4,7 +4,7 @@ from openai import AsyncOpenAI
 from settings import load_api_key, SettingsWindow
 
 gi.require_version("Gtk", "3.0")
-from gi.repository import Gtk
+from gi.repository import Gtk, GLib
 
 # Configure a chave de API OpenAI carregada do arquivo de configurações
 api_key = load_api_key()
@@ -73,19 +73,22 @@ class ChatBotApp(Gtk.Window):
 
             # Atualiza o TextView com a resposta
             buffer = self.chat_display.get_buffer()
-            buffer.insert(buffer.get_end_iter(), f"Bot: {response_content}\n")
+            GLib.idle_add(buffer.insert, buffer.get_end_iter(), f"Bot: {response_content}\n")
 
         except Exception as e:
             buffer = self.chat_display.get_buffer()
-            buffer.insert(buffer.get_end_iter(), f"Erro ao obter resposta: {e}\n")
+            GLib.idle_add(buffer.insert, buffer.get_end_iter(), f"Erro ao obter resposta: {e}\n")
 
     def open_settings(self, widget):
         # Abre a janela de configurações
         settings_window = SettingsWindow()
         settings_window.show_all()
 
-if __name__ == "__main__":
+async def main_async():
     app = ChatBotApp()
     app.connect("destroy", Gtk.main_quit)
     app.show_all()
-    Gtk.main()
+    await asyncio.get_event_loop().run_in_executor(None, Gtk.main)
+
+if __name__ == "__main__":
+    asyncio.run(main_async())

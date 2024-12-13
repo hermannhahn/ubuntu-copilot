@@ -46,12 +46,12 @@ class ChatWindow():
         # Campo de entrada
         self.entry = Gtk.Entry()
         self.entry.set_placeholder_text("Digite sua mensagem...")
-        self.entry.connect("activate", asyncio.run(self.on_message_sent))
+        self.entry.connect("activate", self.on_message_sent)
         bottom.pack_start(self.entry, True, True, 0)
 
         # Botão de enviar
         send_button = Gtk.Button(label="Enviar")
-        send_button.connect("clicked", asyncio.run(self.on_message_sent))
+        send_button.connect("clicked", self.on_message_sent)
         bottom.pack_start(send_button, False, False, 0)
 
         # Botão para abrir configurações ao lado do botão enviar
@@ -59,7 +59,10 @@ class ChatWindow():
         settings_button.connect("clicked", self.open_settings)
         bottom.pack_start(settings_button, False, False, 0)
 
-    async def on_message_sent(self, widget):
+    def on_message_sent(self, message):
+        asyncio.run(self.send_message(message))
+
+    async def send_message(self, widget):
         # Captura o texto da entrada
         message = self.entry.get_text()
         # Limpa o campo de entrada
@@ -71,9 +74,9 @@ class ChatWindow():
         # Verifica se a mensagem não está vazia
         if message.strip():
             # Envia a mensagem para o modelo de linguagem e exibe a resposta
-            await self.send_message(message)
+            await self.gemini_response(message)
 
-    async def send_message(self, message):
+    def gemini_response(self, message):
         # Chama o Vertex AI para obter a resposta
         jsonResponse = self.model.generate_content(message)
         response = jsonResponse.candidates[0].content.parts[0].text

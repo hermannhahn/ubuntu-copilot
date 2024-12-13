@@ -26,7 +26,8 @@ class App(Gtk.Window):
         self.chat_display.set_cursor_visible(False)
         self.chat_display.set_left_margin(10)
         self.chat_display.set_right_margin(10)
-
+        self.chat_display.set_top_margin(10)
+        self.chat_display.set_bottom_margin(10)
 
         # Scroll para a área de chat
         chat_scroll = Gtk.ScrolledWindow()

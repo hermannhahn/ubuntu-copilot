@@ -75,13 +75,13 @@ class ChatWindow:
 
     def gemini_response(self, message):
         jsonResponse = self.model.generate_content(message)
-        # response = jsonResponse.candidates[0].content.parts[0].text
+        response = jsonResponse.candidates[0].content.parts[0].text
         # Simulação de streaming, processando a resposta em pedaços
         chunk_size = 100  # Tamanho do chunk em caracteres
 
-        output = jsonResponse.result.candidates[0].output
-        for i in range(0, len(output), chunk_size):
-            chunk = output[i:i + chunk_size]
+        #output = jsonResponse.result.candidates[0].output
+        for i in range(0, len(response), chunk_size):
+            chunk = response[i:i + chunk_size]
             self.buffer.insert(self.buffer.get_end_iter(), chunk)
             yield chunk
 

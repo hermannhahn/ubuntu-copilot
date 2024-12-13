@@ -63,11 +63,12 @@ class App(Gtk.Window):
             buffer = self.chat_display.get_buffer()
             buffer.insert(buffer.get_end_iter(), f"Você: {message}\n")
 
+            # Limpa o campo de entrada
+            self.entry.set_text("")
+            
             # Chama a API OpenAI
             asyncio.run(self.get_bot_response(message))
 
-        # Limpa o campo de entrada
-        self.entry.set_text("")
 
     async def get_bot_response(self, message):
         try:

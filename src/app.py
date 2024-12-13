@@ -56,55 +56,31 @@ class App(Gtk.Window):
         settings_button.connect("clicked", self.open_settings)
         bottom.pack_start(settings_button, False, False, 0)
 
-        # # Configuração do Vertex AI
-        # api_key = load_api_key()
-        # genai.configure(api_key=api_key)
-        # self.project_id = load_project_id()
-        # self.region = load_region()
-        # self.endpoint_id = load_endpoint_id()
-        # self.client = aiplatform.gapic.PredictionServiceClient()
-        # self.endpoint_path = self.client.endpoint_path(
-        #     project=self.project_id, location=self.region, endpoint=self.endpoint_id
-        # )
+        # Configuração do Vertex AI
+        api_key = load_api_key()
+        genai.configure(api_key=api_key)
+        self.project_id = load_project_id()
+        self.region = load_region()
+        self.endpoint_id = load_endpoint_id()
+        vertexai.init(project=self.project_id, location=self.region)
+        self.model = GenerativeModel("gemini-1.5-flash-002")
 
     def on_message_sent(self, widget):
         # Captura o texto da entrada
         message = self.entry.get_text()
+        # Limpa o campo de entrada
+        self.entry.set_text("")
+
+        # Verifica se a mensagem não está vazia
         if message.strip():
             # Exibe a mensagem no chat
             buffer = self.chat_display.get_buffer()
             buffer.insert(buffer.get_end_iter(), f"Você: {message}\n")
 
             # Chama o Vertex AI para obter a resposta
-            response = self.get_vertex_response(message)
+            response = self.model.generate_content(message)
             buffer.insert(buffer.get_end_iter(), f"Bot: {response}\n")
 
-        # Limpa o campo de entrada
-        self.entry.set_text("")
-
-    def get_vertex_response(self, user_input):
-        # Prepara os dados para o modelo
-        instance = {
-            "content": user_input
-        }
-        instances = [instance]
-
-        # Faz a chamada para o Vertex AI
-        try:
-            response = self.client.predict(
-                endpoint=self.endpoint_path,
-                instances=instances,
-                parameters={}
-            )
-            predictions = response.predictions
-            if predictions:
-                # Extrai a resposta do modelo
-                return predictions[0]["content"]
-            else:
-                return "Desculpe, não entendi sua solicitação."
-        except Exception as e:
-            return f"Erro ao conectar ao Vertex AI: {e}"
-        
     def open_settings(self, widget):
         # Abre a janela de configurações
         settings_window = SettingsWindow()

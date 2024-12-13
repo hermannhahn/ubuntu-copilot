@@ -1,97 +1,60 @@
-import tkinter as tk
-import tkinter.ttk as ttk
-from tkinter import messagebox, scrolledtext
-from pystray import Icon, MenuItem, Menu
-from PIL import Image, ImageDraw
-import threading
-from pynput import keyboard
-from chat import Chat
+import gi
+gi.require_version("Gtk", "3.0")
+from gi.repository import Gtk
 
+class ChatBotApp(Gtk.Window):
+    def __init__(self):
+        super().__init__(title="Linux Co-Pilot Chatbot")
+        self.set_default_size(600, 400)
 
-class CrossPlatformApp:
+        # Layout principal
+        layout = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+        self.add(layout)
 
-    def __init__(self, root):
-        self.root = root
+        # Área de exibição do chat
+        self.chat_display = Gtk.TextView()
+        self.chat_display.set_wrap_mode(Gtk.WrapMode.WORD)
+        self.chat_display.set_editable(False)
+        self.chat_display.set_cursor_visible(False)
 
-        # Keyboard events
-        self.start_keyboard_monitor()
+        # Scroll para a área de chat
+        chat_scroll = Gtk.ScrolledWindow()
+        chat_scroll.set_vexpand(True)
+        chat_scroll.add(self.chat_display)
+        layout.pack_start(chat_scroll, True, True, 0)
 
-        # Tray icon
-        self.icon = None
-        self.create_tray_icon()
+        # Campo de entrada
+        self.entry = Gtk.Entry()
+        self.entry.set_placeholder_text("Digite sua mensagem...")
+        self.entry.connect("activate", self.on_message_sent)
+        layout.pack_start(self.entry, False, False, 0)
 
-        self.chat = Chat(root)
-        self.chat.root.withdraw()
-        
-    def create_tray_icon(self):
-        """Cria o ícone do tray com menu."""
-        # Gera o ícone
-        icon_image = self.generate_icon_image()
+        # Botão de enviar
+        send_button = Gtk.Button(label="Enviar")
+        send_button.connect("clicked", self.on_message_sent)
+        layout.pack_start(send_button, False, False, 0)
 
-        # Cria o menu com ações
-        menu = Menu(MenuItem("Chat", self.show_chat),
-                    MenuItem("Quit", self.quit_app))
+    def on_message_sent(self, widget):
+        # Captura o texto da entrada
+        message = self.entry.get_text()
+        if message.strip():
+            # Exibe a mensagem no chat
+            buffer = self.chat_display.get_buffer()
+            buffer.insert(buffer.get_end_iter(), f"Você: {message}\n")
 
-        # Cria o ícone da bandeja
-        self.icon = Icon("AI Chat", icon_image, menu=menu)
+            # Aqui você chamaria a API OpenAI (substitua por uma função real)
+            response = self.get_bot_response(message)
+            buffer.insert(buffer.get_end_iter(), f"Bot: {response}\n")
 
-        # Inicia o tray icon em uma thread separada
-        threading.Thread(target=self.icon.run, daemon=True).start()
+        # Limpa o campo de entrada
+        self.entry.set_text("")
 
-    def generate_icon_image(self):
-        """Gera um ícone simples usando PIL."""
-        size = (64, 64)
-        image = Image.new("RGB", size)
-        draw = ImageDraw.Draw(image)
-        # simbolo parecido com o simbolo do google assistant
-        draw.ellipse((16, 16, 48, 48), fill="#4d7aa1")
-        draw.ellipse((15, 15, 33, 33), fill="red")
-        return image
-
-    def show_chat(self, _=None):
-        """Mostra a janela principal."""
-        self.chat.root.deiconify()
-
-    def hide_window(self):
-        """Esconde a janela principal."""
-        self.root.withdraw()
-
-    def quit_app(self, _=None):
-        """Encerra o aplicativo."""
-        if self.icon:
-            self.icon.stop()
-        self.root.quit()
-
-    def start_keyboard_monitor(self):
-        """Inicia o monitor de teclado em uma thread separada."""
-        threading.Thread(target=self.keyboard_listener, daemon=True).start()
-
-    def keyboard_listener(self):
-        """Monitora eventos globais de teclado."""
-
-        def on_press(key):
-            try:
-                if key == keyboard.Key.f1:
-                    # A chamada para mostrar a mensagem precisa ser feita na thread principal do Tkinter
-                    self.root.after(0, self.on_f1_pressed)
-            except Exception as e:
-                print(f"Erro no listener de teclado: {e}")
-
-        # Inicia o listener de teclado
-        with keyboard.Listener(on_press=on_press) as listener:
-            listener.join()
-
-    def on_f1_pressed(self):
-        """Ação executada ao pressionar F1."""
-        messagebox.showinfo("Tecla F1 Pressionada", "Você pressionou F1!")
-
-    def run(self):
-        self.root.protocol("WM_DELETE_WINDOW", self.hide_window)
-        self.root.mainloop()
+    def get_bot_response(self, message):
+        # Simula uma resposta do bot (substitua pela integração com a API OpenAI)
+        return f"Sim, entendi '{message}'!"
 
 if __name__ == "__main__":
-    root = tk.Tk()
-    root.withdraw()  # Esconde a janela principal inicialmente
-    app = CrossPlatformApp(root)
-    app.run()
-
+    app = ChatBotApp()
+    app.connect("destroy", Gtk.main_quit)
+    app.show_all()
+    Gtk.main()

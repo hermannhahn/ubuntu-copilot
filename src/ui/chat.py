@@ -21,7 +21,7 @@ class ChatWindow:
         self.model = GenerativeModel("gemini-1.5-flash-002")
         
         # Layout principal
-        self.layout = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10, margin=10)
+        self.layout = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
         
         # Área de exibição do chat
         self.chat_display = Gtk.TextView()

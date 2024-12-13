@@ -10,7 +10,7 @@ from gi.repository import Gtk
 api_key = load_api_key()
 client = AsyncOpenAI(api_key=api_key)
 
-class ChatBotApp(Gtk.Window):
+class App(Gtk.Window):
     def __init__(self):
         super().__init__(title="Linux Co-Pilot Chatbot")
         self.set_default_size(600, 400)
@@ -42,8 +42,8 @@ class ChatBotApp(Gtk.Window):
         send_button.connect("clicked", self.on_message_sent)
         layout.pack_start(send_button, False, False, 0)
 
-        # Botão para abrir configurações
-        settings_button = Gtk.Button(label="Configurações")
+        # Botão com ícone para abrir configurações
+        settings_button = Gtk.Button(label="⚙")
         settings_button.connect("clicked", self.open_settings)
         layout.pack_start(settings_button, False, False, 0)
 
@@ -90,7 +90,7 @@ class ChatBotApp(Gtk.Window):
         settings_window.show_all()
 
 if __name__ == "__main__":
-    app = ChatBotApp()
+    app = App()
     app.connect("destroy", Gtk.main_quit)
     app.show_all()
     Gtk.main()

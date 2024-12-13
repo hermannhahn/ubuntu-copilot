@@ -24,12 +24,15 @@ class App(Gtk.Window):
         self.chat_display.set_wrap_mode(Gtk.WrapMode.WORD)
         self.chat_display.set_editable(False)
         self.chat_display.set_cursor_visible(False)
+        self.chat_display.set_left_margin(10)
+        self.chat_display.set_right_margin(10)
+
 
         # Scroll para a área de chat
         chat_scroll = Gtk.ScrolledWindow()
         chat_scroll.set_vexpand(True)
         chat_scroll.add(self.chat_display)
-        layout.pack_start(chat_scroll, True, True, 10)
+        layout.pack_start(chat_scroll, True, True, 0)
         
         # Bottom
         bottom = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=2)

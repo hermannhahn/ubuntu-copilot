@@ -9,7 +9,7 @@ import asyncio
 import vertexai
 from vertexai.generative_models import GenerativeModel, SafetySetting, Part
 
-class Chat():
+class ChatWindow():
     def __init__(self):
         # Layout principal
         layout = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10, margin=10)

@@ -1,19 +1,30 @@
+import os 
 import gi
 import asyncio
-from openai import AsyncOpenAI
 from settings import load_api_key, SettingsWindow
+import google.generativeai as genai
+from google.cloud import aiplatform
 
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
 
 # Configure a chave de API OpenAI carregada do arquivo de configurações
 api_key = load_api_key()
-client = AsyncOpenAI(api_key=api_key)
+genai.configure(api_key=api_key)
 
 class App(Gtk.Window):
     def __init__(self):
         super().__init__(title="Linux Co-Pilot Chatbot")
         self.set_default_size(600, 400)
+
+        # Configuração do Vertex AI
+        self.project_id = "seu-projeto-id"
+        self.region = "us-central1"  # Região onde o modelo está hospedado
+        self.endpoint_id = "seu-endpoint-id"  # Substitua pelo seu endpoint
+        self.client = aiplatform.gapic.PredictionServiceClient()
+        self.endpoint_path = self.client.endpoint_path(
+            project=self.project_id, location=self.region, endpoint=self.endpoint_id
+        )
 
         # Layout principal
         layout = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10, margin=10)
@@ -58,41 +69,41 @@ class App(Gtk.Window):
     def on_message_sent(self, widget):
         # Captura o texto da entrada
         message = self.entry.get_text()
-        # Limpa o campo de entrada
-        self.entry.set_text("")
-        
         if message.strip():
             # Exibe a mensagem no chat
             buffer = self.chat_display.get_buffer()
             buffer.insert(buffer.get_end_iter(), f"Você: {message}\n")
-           
-            # Chama a API OpenAI
-            asyncio.run(self.get_bot_response(message))
 
+            # Chama o Vertex AI para obter a resposta
+            response = self.get_vertex_response(message)
+            buffer.insert(buffer.get_end_iter(), f"Bot: {response}\n")
 
-    async def get_bot_response(self, message):
+        # Limpa o campo de entrada
+        self.entry.set_text("")
+
+    def get_vertex_response(self, user_input):
+        # Prepara os dados para o modelo
+        instance = {
+            "content": user_input
+        }
+        instances = [instance]
+
+        # Faz a chamada para o Vertex AI
         try:
-            stream = await client.chat.completions.create(
-                messages=[
-                    {"role": "user", "content": message}
-                ],
-                stream=True,
-                model="gpt-3.5-turbo"
+            response = self.client.predict(
+                endpoint=self.endpoint_path,
+                instances=instances,
+                parameters={}
             )
-            
-            #response_content = stream["choices"][0]["message"]["content"]
-
-            # Atualiza o TextView com a resposta
-            buffer = self.chat_display.get_buffer()
-            for chunk in stream:
-                buffer.insert(buffer.get_end_iter(), f"Bot: {chunk.choices[0].delta.content or ''}\n")
-                self.chat_display.scroll_to_iter(buffer.get_end_iter(), 0, True, 0, 0)
-                self.show_all()
-
+            predictions = response.predictions
+            if predictions:
+                # Extrai a resposta do modelo
+                return predictions[0]["content"]
+            else:
+                return "Desculpe, não entendi sua solicitação."
         except Exception as e:
-            buffer = self.chat_display.get_buffer()
-            buffer.insert(buffer.get_end_iter(), f"Erro ao obter resposta: {e}\n")
-
+            return f"Erro ao conectar ao Vertex AI: {e}"
+        
     def open_settings(self, widget):
         # Abre a janela de configurações
         settings_window = SettingsWindow()

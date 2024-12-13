@@ -11,6 +11,10 @@ from vertexai.generative_models import GenerativeModel, SafetySetting, Part
 
 class ChatWindow():
     def __init__(self):
+        # Layout principal
+        layout = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10, margin=10)
+        self.add(layout)
+        
         # Área de exibição do chat
         self.chat_display = Gtk.TextView()
         self.chat_display.set_wrap_mode(Gtk.WrapMode.WORD)

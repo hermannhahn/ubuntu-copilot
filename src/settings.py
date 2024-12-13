@@ -2,7 +2,7 @@ import gi
 import json
 import os
 
-gi.require_version("Gtk", "4.0")
+gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
 
 CONFIG_FILE = "config.json"

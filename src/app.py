@@ -78,7 +78,10 @@ class App(Gtk.Window):
             buffer.insert(buffer.get_end_iter(), f"Você: {message}\n")
 
             # Chama o Vertex AI para obter a resposta
-            response = self.model.generate_content(message)
+            jsonResponse = self.model.generate_content(message)
+            response = jsonResponse.candidates[0].content.parts.text
+
+            # Exibe a resposta no chat
             buffer.insert(buffer.get_end_iter(), f"Bot: {response}\n")
 
     def open_settings(self, widget):

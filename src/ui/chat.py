@@ -1,12 +1,11 @@
 import gi
-gi.require_version("Gtk", "3.0")
+gi.require_version("Gtk", "4.0")
 from gi.repository import Gtk, GLib
 
 import threading
-
 import google.generativeai as genai
 import vertexai
-from vertexai.generative_models import GenerativeModel, SafetySetting, Part
+from vertexai.generative_models import GenerativeModel
 
 from settings import SettingsWindow, load_api_key, load_project_id, load_region
 
@@ -19,45 +18,49 @@ class ChatWindow:
         self.region = load_region()
         vertexai.init(project=self.project_id, location=self.region)
         self.model = GenerativeModel("gemini-1.5-flash-002")
-        
+
         # Layout principal
-        self.layout = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10, margin=10)
-        
+        self.layout = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+        self.layout.set_margin_top(10)
+        self.layout.set_margin_bottom(10)
+        self.layout.set_margin_start(10)
+        self.layout.set_margin_end(10)
+
         # Área de exibição do chat
         self.chat_display = Gtk.TextView()
         self.chat_display.set_wrap_mode(Gtk.WrapMode.WORD)
         self.chat_display.set_editable(False)
         self.chat_display.set_cursor_visible(False)
-        self.chat_display.set_left_margin(10)
-        self.chat_display.set_right_margin(10)
-        self.chat_display.set_top_margin(10)
-        self.chat_display.set_bottom_margin(10)
+        self.chat_display.set_margin_top(10)
+        self.chat_display.set_margin_bottom(10)
+        self.chat_display.set_margin_start(10)
+        self.chat_display.set_margin_end(10)
 
         # Scroll para a área de chat
         chat_scroll = Gtk.ScrolledWindow()
         chat_scroll.set_vexpand(True)
-        chat_scroll.add(self.chat_display)
-        self.layout.pack_start(chat_scroll, True, True, 0)
-        
+        chat_scroll.set_child(self.chat_display)
+        self.layout.append(chat_scroll)
+
         # Bottom
-        bottom = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=2)
-        self.layout.pack_start(bottom, False, False, 10)
+        bottom = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=5)
+        self.layout.append(bottom)
 
         # Campo de entrada
         self.entry = Gtk.Entry()
         self.entry.set_placeholder_text("Digite sua mensagem...")
         self.entry.connect("activate", self.on_message_sent)
-        bottom.pack_start(self.entry, True, True, 0)
+        bottom.append(self.entry)
 
         # Botão de enviar
         send_button = Gtk.Button(label="Enviar")
         send_button.connect("clicked", self.on_message_sent)
-        bottom.pack_start(send_button, False, False, 0)
+        bottom.append(send_button)
 
         # Botão para abrir configurações
         settings_button = Gtk.Button(label="⚙")
         settings_button.connect("clicked", self.open_settings)
-        bottom.pack_start(settings_button, False, False, 0)
+        bottom.append(settings_button)
 
     def on_message_sent(self, widget):
         # Captura o texto da entrada
@@ -65,8 +68,8 @@ class ChatWindow:
         # Limpa o campo de entrada
         self.entry.set_text("")
         # Exibe a mensagem no chat
-        self.buffer = self.chat_display.get_buffer()
-        self.buffer.insert(self.buffer.get_end_iter(), f"Você: {message}\n")
+        buffer = self.chat_display.get_buffer()
+        buffer.insert(buffer.get_end_iter(), f"Você: {message}\n")
 
         # Verifica se a mensagem não está vazia
         if message.strip():
@@ -76,9 +79,10 @@ class ChatWindow:
     def gemini_response(self, message):
         jsonResponse = self.model.generate_content(message)
         response = jsonResponse.candidates[0].content.parts[0].text
-        self.buffer.insert(self.buffer.get_end_iter(), f"Bot: {response}\n")
+        buffer = self.chat_display.get_buffer()
+        buffer.insert(buffer.get_end_iter(), f"Bot: {response}\n")
 
     def open_settings(self, widget):
         # Abre a janela de configurações
         settings_window = SettingsWindow()
-        settings_window.show_all()
+        settings_window.show()

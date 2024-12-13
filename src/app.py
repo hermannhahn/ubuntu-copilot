@@ -8,23 +8,10 @@ from google.cloud import aiplatform
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
 
-# Configure a chave de API OpenAI carregada do arquivo de configurações
-api_key = load_api_key()
-genai.configure(api_key=api_key)
-
 class App(Gtk.Window):
     def __init__(self):
         super().__init__(title="Linux Co-Pilot Chatbot")
         self.set_default_size(600, 400)
-
-        # Configuração do Vertex AI
-        self.project_id = load_project_id()
-        self.region = load_region()
-        self.endpoint_id = load_endpoint_id()
-        self.client = aiplatform.gapic.PredictionServiceClient()
-        self.endpoint_path = self.client.endpoint_path(
-            project=self.project_id, location=self.region, endpoint=self.endpoint_id
-        )
 
         # Layout principal
         layout = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10, margin=10)
@@ -65,6 +52,17 @@ class App(Gtk.Window):
         settings_button = Gtk.Button(label="⚙")
         settings_button.connect("clicked", self.open_settings)
         bottom.pack_start(settings_button, False, False, 0)
+
+        # Configuração do Vertex AI
+        api_key = load_api_key()
+        genai.configure(api_key=api_key)
+        self.project_id = load_project_id()
+        self.region = load_region()
+        self.endpoint_id = load_endpoint_id()
+        self.client = aiplatform.gapic.PredictionServiceClient()
+        self.endpoint_path = self.client.endpoint_path(
+            project=self.project_id, location=self.region, endpoint=self.endpoint_id
+        )
 
     def on_message_sent(self, widget):
         # Captura o texto da entrada

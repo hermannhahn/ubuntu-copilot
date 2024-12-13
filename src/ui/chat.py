@@ -22,15 +22,6 @@ class ChatWindow:
         vertexai.init(project=self.project_id, location=self.region)
         self.model = GenerativeModel("gemini-1.5-flash-002")
         
-        # api key alert message
-        dialog = Gtk.MessageDialog(
-            transient_for=None,
-            message_type=Gtk.MessageType.WARNING,
-            buttons=Gtk.ButtonsType.OK,
-            text="Por favor, configure as credenciais antes de continuar.",
-        )
-        dialog.connect("response", lambda d, r: d.close() and self.settings_window.show())
-
         # Layout principal
         self.layout = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
         self.layout.set_margin_top(10)
@@ -68,8 +59,17 @@ class ChatWindow:
         settings_button = Gtk.Button(label="⚙")
         settings_button.connect("clicked", self.open_settings)
 
+        # api key alert message
+        self.api_alert = Gtk.MessageDialog(
+            transient_for=None,
+            message_type=Gtk.MessageType.WARNING,
+            buttons=Gtk.ButtonsType.OK,
+            text="Por favor, configure as credenciais antes de continuar.",
+        )
+        self.api_alert.connect("response", lambda d, r: self.close_alert(d))
+
         if not self.api_key or not self.project_id or not self.region:
-            dialog.show()
+            self.api_alert.show()
         else:
             chat_scroll.set_child(self.chat_display)
             self.layout.append(chat_scroll)
@@ -77,6 +77,10 @@ class ChatWindow:
             bottom.append(self.entry)
             bottom.append(send_button)
             bottom.append(settings_button)
+
+    def close_alert(self, d):
+        d.close()
+        self.settings_window.show()
 
     def on_message_sent(self, widget):
         # Captura o texto da entrada

@@ -18,6 +18,8 @@ class App(Gtk.Window):
         # Layout principal
         layout = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
         self.add(layout)
+        sidebar = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+        self.add(sidebar)
 
         # Área de exibição do chat
         self.chat_display = Gtk.TextView()
@@ -42,7 +44,7 @@ class App(Gtk.Window):
         send_button.connect("clicked", self.on_message_sent)
         layout.pack_start(send_button, False, False, 0)
 
-        # Botão com ícone para abrir configurações ao lado do botão enviar
+        # Botão para abrir configurações ao lado do botão enviar
         settings_button = Gtk.Button(label="⚙")
         settings_button.connect("clicked", self.open_settings)
         layout.pack_start(settings_button, False, False, 0)

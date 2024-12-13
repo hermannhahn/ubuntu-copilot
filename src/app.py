@@ -62,17 +62,16 @@ class ChatBotApp(Gtk.Window):
 
     def get_bot_response(self, message):
         try:
-            # Solicitação para a API OpenAI usando `Completion`
-            response = openai.Completion.create(
-                engine="text-davinci-003",  # Modelo pode ser ajustado conforme necessário
-                prompt=f"Você é um assistente útil.\nUsuário: {message}\nAssistente:",
-                max_tokens=150,
-                n=1,
-                stop=None,
-                temperature=0.7
+            # Solicitação para a API OpenAI usando `ChatCompletion`
+            response = openai.ChatCompletion.create(
+                model="gpt-3.5-turbo",  # Modelo moderno sugerido pela OpenAI
+                messages=[
+                    {"role": "system", "content": "Você é um assistente útil."},
+                    {"role": "user", "content": message}
+                ]
             )
             # Retorna o conteúdo da resposta
-            return response.choices[0].text.strip()
+            return response['choices'][0]['message']['content'].strip()
         except Exception as e:
             return f"Erro ao obter resposta: {e}"
 

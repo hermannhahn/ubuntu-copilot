@@ -19,8 +19,7 @@ class App(Gtk.Window):
         layout = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
         self.add(layout)
         bottom = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-        layout.pack_start(bottom, False, False, 0)
-
+        self.add(bottom)
 
         # Área de exibição do chat
         self.chat_display = Gtk.TextView()

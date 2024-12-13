@@ -43,12 +43,9 @@ class App(Gtk.Window):
         layout.pack_start(send_button, False, False, 0)
 
         # Botão com ícone para abrir configurações ao lado do botão enviar
-        settings_button = Gtk.Button()
-        settings_icon = Gtk.Image.new_from_icon_name("emblem-system", Gtk.IconSize.MENU)
-        settings_button.set_image(settings_icon)
+        settings_button = Gtk.Button(label="⚙")
         settings_button.connect("clicked", self.open_settings)
         layout.pack_start(settings_button, False, False, 0)
-
 
     def on_message_sent(self, widget):
         # Captura o texto da entrada

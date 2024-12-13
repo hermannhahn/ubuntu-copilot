@@ -17,16 +17,17 @@ class ChatWindow:
         self.project_id = load_project_id()
         self.region = load_region()
         
+        # open popup with alert message
+        dialog = Gtk.MessageDialog(
+            transient_for=None,
+            message_type=Gtk.MessageType.WARNING,
+            buttons=Gtk.ButtonsType.OK,
+            text="Por favor, configure as credenciais antes de continuar.",
+        )
+        dialog.connect("response", lambda d, r: d.close() and self.settings_window.show())
+        
         if not self.api_key or not self.project_id or not self.region:
-            # open popup with alert message
-            dialog = Gtk.MessageDialog(
-                transient_for=None,
-                message_type=Gtk.MessageType.WARNING,
-                buttons=Gtk.ButtonsType.OK,
-                text="Por favor, configure as credenciais antes de continuar.",
-            )
             dialog.show()
-            dialog.connect("response", lambda d, r: self.settings_window.show())
 
         genai.configure(api_key=self.api_key)
         vertexai.init(project=self.project_id, location=self.region)

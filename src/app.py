@@ -1,12 +1,14 @@
 import gi
-import openai
+import asyncio
+from openai import AsyncOpenAI
 from settings import load_api_key, SettingsWindow
 
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
 
 # Configure a chave de API OpenAI carregada do arquivo de configurações
-openai.api_key = load_api_key()
+api_key = load_api_key()
+client = AsyncOpenAI(api_key=api_key)
 
 class ChatBotApp(Gtk.Window):
     def __init__(self):
@@ -53,27 +55,29 @@ class ChatBotApp(Gtk.Window):
             buffer = self.chat_display.get_buffer()
             buffer.insert(buffer.get_end_iter(), f"Você: {message}\n")
 
-            # Chama a API OpenAI
-            response = self.get_bot_response(message)
-            buffer.insert(buffer.get_end_iter(), f"Bot: {response}\n")
+            # Chama a API OpenAI de forma assíncrona
+            asyncio.create_task(self.get_bot_response_async(message))
 
         # Limpa o campo de entrada
         self.entry.set_text("")
 
-    def get_bot_response(self, message):
+    async def get_bot_response_async(self, message):
         try:
-            # Solicitação para a API OpenAI usando `ChatCompletion`
-            response = openai.ChatCompletion.create(
-                model="gpt-3.5-turbo",  # Modelo moderno sugerido pela OpenAI
+            chat_completion = await client.chat.completions.create(
                 messages=[
-                    {"role": "system", "content": "Você é um assistente útil."},
                     {"role": "user", "content": message}
-                ]
+                ],
+                model="gpt-4o"
             )
-            # Retorna o conteúdo da resposta
-            return response['choices'][0]['message']['content'].strip()
+            response_content = chat_completion["choices"][0]["message"]["content"]
+
+            # Atualiza o TextView com a resposta
+            buffer = self.chat_display.get_buffer()
+            buffer.insert(buffer.get_end_iter(), f"Bot: {response_content}\n")
+
         except Exception as e:
-            return f"Erro ao obter resposta: {e}"
+            buffer = self.chat_display.get_buffer()
+            buffer.insert(buffer.get_end_iter(), f"Erro ao obter resposta: {e}\n")
 
     def open_settings(self, widget):
         # Abre a janela de configurações

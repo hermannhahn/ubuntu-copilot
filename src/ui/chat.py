@@ -22,43 +22,6 @@ class ChatWindow:
         vertexai.init(project=self.project_id, location=self.region)
         self.model = GenerativeModel("gemini-1.5-flash-002")
         
-        # Layout principal
-        self.layout = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
-        self.layout.set_margin_top(10)
-        self.layout.set_margin_bottom(10)
-        self.layout.set_margin_start(10)
-        self.layout.set_margin_end(10)
-
-        # Área de exibição do chat
-        self.chat_display = Gtk.TextView()
-        self.chat_display.set_wrap_mode(Gtk.WrapMode.WORD)
-        self.chat_display.set_editable(False)
-        self.chat_display.set_cursor_visible(False)
-        self.chat_display.set_margin_top(10)
-        self.chat_display.set_margin_bottom(10)
-        self.chat_display.set_margin_start(10)
-        self.chat_display.set_margin_end(10)
-
-        # Scroll para a área de chat
-        chat_scroll = Gtk.ScrolledWindow()
-        chat_scroll.set_vexpand(True)
-
-        # Bottom
-        bottom = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=5)
-
-        # Campo de entrada
-        self.entry = Gtk.Entry()
-        self.entry.set_placeholder_text("Digite sua mensagem...")
-        self.entry.connect("activate", self.on_message_sent)
-
-        # Botão de enviar
-        send_button = Gtk.Button(label="Enviar")
-        send_button.connect("clicked", self.on_message_sent)
-
-        # Botão para abrir configurações
-        settings_button = Gtk.Button(label="⚙")
-        settings_button.connect("clicked", self.open_settings)
-
         # api key alert message
         self.api_alert = Gtk.MessageDialog(
             transient_for=None,
@@ -71,6 +34,43 @@ class ChatWindow:
         if not self.api_key or not self.project_id or not self.region:
             self.api_alert.show()
         else:
+            # Layout principal
+            self.layout = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+            self.layout.set_margin_top(10)
+            self.layout.set_margin_bottom(10)
+            self.layout.set_margin_start(10)
+            self.layout.set_margin_end(10)
+
+            # Área de exibição do chat
+            self.chat_display = Gtk.TextView()
+            self.chat_display.set_wrap_mode(Gtk.WrapMode.WORD)
+            self.chat_display.set_editable(False)
+            self.chat_display.set_cursor_visible(False)
+            self.chat_display.set_margin_top(10)
+            self.chat_display.set_margin_bottom(10)
+            self.chat_display.set_margin_start(10)
+            self.chat_display.set_margin_end(10)
+
+            # Scroll para a área de chat
+            chat_scroll = Gtk.ScrolledWindow()
+            chat_scroll.set_vexpand(True)
+
+            # Bottom
+            bottom = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=5)
+
+            # Campo de entrada
+            self.entry = Gtk.Entry()
+            self.entry.set_placeholder_text("Digite sua mensagem...")
+            self.entry.connect("activate", self.on_message_sent)
+
+            # Botão de enviar
+            send_button = Gtk.Button(label="Enviar")
+            send_button.connect("clicked", self.on_message_sent)
+
+            # Botão para abrir configurações
+            settings_button = Gtk.Button(label="⚙")
+            settings_button.connect("clicked", self.open_settings)
+            
             chat_scroll.set_child(self.chat_display)
             self.layout.append(chat_scroll)
             self.layout.append(bottom)

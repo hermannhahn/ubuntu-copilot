@@ -11,7 +11,7 @@ class App(Gtk.Window):
 
         # Layout principal (chat)
         self.chat = ChatWindow()
-        self.add(self.chat)
+        self.add(self.chat.layout)
 
 if __name__ == "__main__":
     app = App()

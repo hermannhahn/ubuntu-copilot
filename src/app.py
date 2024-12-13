@@ -58,14 +58,14 @@ class App(Gtk.Window):
     def on_message_sent(self, widget):
         # Captura o texto da entrada
         message = self.entry.get_text()
+        # Limpa o campo de entrada
+        self.entry.set_text("")
+        
         if message.strip():
             # Exibe a mensagem no chat
             buffer = self.chat_display.get_buffer()
             buffer.insert(buffer.get_end_iter(), f"Você: {message}\n")
-
-            # Limpa o campo de entrada
-            self.entry.set_text("")
-            
+           
             # Chama a API OpenAI
             asyncio.run(self.get_bot_response(message))
 

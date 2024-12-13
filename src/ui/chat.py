@@ -11,6 +11,15 @@ from vertexai.generative_models import GenerativeModel, SafetySetting, Part
 
 class ChatWindow():
     def __init__(self):
+        # Configuração do Vertex AI
+        self.api_key = load_api_key()
+        genai.configure(api_key=self.api_key)
+        self.project_id = load_project_id()
+        self.region = load_region()
+        #self.endpoint_id = load_endpoint_id()
+        vertexai.init(project=self.project_id, location=self.region)
+        self.model = GenerativeModel("gemini-1.5-flash-002")
+        
         # Layout principal
         self.layout = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10, margin=10)
         
@@ -37,12 +46,12 @@ class ChatWindow():
         # Campo de entrada
         self.entry = Gtk.Entry()
         self.entry.set_placeholder_text("Digite sua mensagem...")
-        self.entry.connect("activate", self.on_message_sent)
+        self.entry.connect("activate", asyncio.run(self.on_message_sent))
         bottom.pack_start(self.entry, True, True, 0)
 
         # Botão de enviar
         send_button = Gtk.Button(label="Enviar")
-        send_button.connect("clicked", self.on_message_sent)
+        send_button.connect("clicked", asyncio.run(self.on_message_sent))
         bottom.pack_start(send_button, False, False, 0)
 
         # Botão para abrir configurações ao lado do botão enviar
@@ -50,16 +59,7 @@ class ChatWindow():
         settings_button.connect("clicked", self.open_settings)
         bottom.pack_start(settings_button, False, False, 0)
 
-        # Configuração do Vertex AI
-        self.api_key = load_api_key()
-        genai.configure(api_key=self.api_key)
-        self.project_id = load_project_id()
-        self.region = load_region()
-        #self.endpoint_id = load_endpoint_id()
-        vertexai.init(project=self.project_id, location=self.region)
-        self.model = GenerativeModel("gemini-1.5-flash-002")
-
-    def on_message_sent(self, widget):
+    async def on_message_sent(self, widget):
         # Captura o texto da entrada
         message = self.entry.get_text()
         # Limpa o campo de entrada
@@ -71,11 +71,11 @@ class ChatWindow():
         # Verifica se a mensagem não está vazia
         if message.strip():
             # Envia a mensagem para o modelo de linguagem e exibe a resposta
-            asyncio.run(self.send_message(message))
+            await self.send_message(message)
 
     async def send_message(self, message):
         # Chama o Vertex AI para obter a resposta
-        jsonResponse = await self.model.generate_content(message)
+        jsonResponse = self.model.generate_content(message)
         response = jsonResponse.candidates[0].content.parts[0].text
         # Exibe a resposta no chat
         self.buffer.insert(self.buffer.get_end_iter(), f"Bot: {response}\n")

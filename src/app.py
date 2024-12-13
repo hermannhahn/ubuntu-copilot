@@ -1,7 +1,7 @@
 import os 
 import gi
 import asyncio
-from settings import load_api_key, SettingsWindow
+from settings import load_api_key, load_project_id, load_region, load_endpoint_id, SettingsWindow
 import google.generativeai as genai
 from google.cloud import aiplatform
 
@@ -18,9 +18,9 @@ class App(Gtk.Window):
         self.set_default_size(600, 400)
 
         # Configuração do Vertex AI
-        self.project_id = "seu-projeto-id"
-        self.region = "us-central1"  # Região onde o modelo está hospedado
-        self.endpoint_id = "seu-endpoint-id"  # Substitua pelo seu endpoint
+        self.project_id = load_project_id()
+        self.region = load_region()
+        self.endpoint_id = load_endpoint_id()
         self.client = aiplatform.gapic.PredictionServiceClient()
         self.endpoint_path = self.client.endpoint_path(
             project=self.project_id, location=self.region, endpoint=self.endpoint_id

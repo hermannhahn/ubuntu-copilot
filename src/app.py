@@ -33,7 +33,7 @@ class App(Gtk.Window):
         
         # Bottom
         bottom = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-        layout.pack_start(bottom, False, False, 5)
+        layout.pack_start(bottom, False, False, 0)
 
         # Campo de entrada
         self.entry = Gtk.Entry()
@@ -44,12 +44,12 @@ class App(Gtk.Window):
         # Botão de enviar
         send_button = Gtk.Button(label="Enviar")
         send_button.connect("clicked", self.on_message_sent)
-        bottom.pack_start(send_button, False, False, 5)
+        bottom.pack_start(send_button, False, False, 10)
 
         # Botão para abrir configurações ao lado do botão enviar
         settings_button = Gtk.Button(label="⚙")
         settings_button.connect("clicked", self.open_settings)
-        bottom.pack_start(settings_button, False, False, 5)
+        bottom.pack_start(settings_button, False, False, 10)
 
     def on_message_sent(self, widget):
         # Captura o texto da entrada

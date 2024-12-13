@@ -2,9 +2,6 @@ import gi
 import json
 import os
 
-# import def build from chat.py
-from chat import build
-
 gi.require_version("Gtk", "4.0")
 from gi.repository import Gtk
 
@@ -106,10 +103,7 @@ class SettingsWindow(Gtk.Window):
 
     def close(self, d):
         d.close()
-        # Fechar a janela de configurações
         self.destroy()
-        # Abrir chat
-        build()
         
 
 if __name__ == "__main__":

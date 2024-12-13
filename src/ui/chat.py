@@ -81,6 +81,7 @@ class ChatWindow:
             
     def close_alert(self, d):
         d.close()
+        self.build()
         self.settings_window.show()
 
     def on_message_sent(self, widget):

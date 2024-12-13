@@ -38,7 +38,7 @@ class App(Gtk.Window):
         self.entry = Gtk.Entry()
         self.entry.set_placeholder_text("Digite sua mensagem...")
         self.entry.connect("activate", self.on_message_sent)
-        layout.pack_start(self.entry, False, False, 0)
+        bottom.pack_start(self.entry, False, False, 0)
 
         # Botão de enviar
         send_button = Gtk.Button(label="Enviar")

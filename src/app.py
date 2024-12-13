@@ -33,7 +33,7 @@ class App(Gtk.Window):
         
         # Bottom
         bottom = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-        layout.pack_start(bottom, False, False, 10)
+        layout.pack_start(bottom, False, False, (10, 10, 10, 0))
 
         # Campo de entrada
         self.entry = Gtk.Entry()

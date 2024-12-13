@@ -16,8 +16,13 @@ class ChatWindow:
         self.api_key = load_api_key()
         self.project_id = load_project_id()
         self.region = load_region()
+
+        # Configuração do Generative AI
+        genai.configure(api_key=self.api_key)
+        vertexai.init(project=self.project_id, location=self.region)
+        self.model = GenerativeModel("gemini-1.5-flash-002")
         
-        # open popup with alert message
+        # api key alert message
         dialog = Gtk.MessageDialog(
             transient_for=None,
             message_type=Gtk.MessageType.WARNING,
@@ -28,11 +33,11 @@ class ChatWindow:
         
         if not self.api_key or not self.project_id or not self.region:
             dialog.show()
-
-        genai.configure(api_key=self.api_key)
-        vertexai.init(project=self.project_id, location=self.region)
-        self.model = GenerativeModel("gemini-1.5-flash-002")
-
+            return
+        else:
+            self.build()
+        
+    def build(self):
         # Layout principal
         self.layout = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
         self.layout.set_margin_top(10)

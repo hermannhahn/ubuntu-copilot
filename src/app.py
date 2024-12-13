@@ -4,7 +4,7 @@ from openai import AsyncOpenAI
 from settings import load_api_key, SettingsWindow
 
 gi.require_version("Gtk", "3.0")
-from gi.repository import Gtk, GLib
+from gi.repository import Gtk
 
 # Configure a chave de API OpenAI carregada do arquivo de configurações
 api_key = load_api_key()
@@ -55,40 +55,42 @@ class ChatBotApp(Gtk.Window):
             buffer = self.chat_display.get_buffer()
             buffer.insert(buffer.get_end_iter(), f"Você: {message}\n")
 
-            # Chama a API OpenAI de forma assíncrona
-            asyncio.create_task(self.get_bot_response_async(message))
+            # Chama a API OpenAI
+            asyncio.run(self.get_bot_response(message))
 
         # Limpa o campo de entrada
         self.entry.set_text("")
 
-    async def get_bot_response_async(self, message):
+    async def get_bot_response(self, message):
         try:
-            chat_completion = await client.chat.completions.create(
+            stream = await client.chat.completions.create(
                 messages=[
                     {"role": "user", "content": message}
                 ],
+                stream=True,
                 model="gpt-4o"
             )
-            response_content = chat_completion["choices"][0]["message"]["content"]
+            
+            #response_content = stream["choices"][0]["message"]["content"]
 
             # Atualiza o TextView com a resposta
             buffer = self.chat_display.get_buffer()
-            GLib.idle_add(buffer.insert, buffer.get_end_iter(), f"Bot: {response_content}\n")
+            for chunk in stream:
+                buffer.insert(buffer.get_end_iter(), f"Bot: {chunk.choices[0].delta.content or ''}\n")
+                self.chat_display.scroll_to_iter(buffer.get_end_iter(), 0, True, 0, 0)
+                self.show_all()
 
         except Exception as e:
             buffer = self.chat_display.get_buffer()
-            GLib.idle_add(buffer.insert, buffer.get_end_iter(), f"Erro ao obter resposta: {e}\n")
+            buffer.insert(buffer.get_end_iter(), f"Erro ao obter resposta: {e}\n")
 
     def open_settings(self, widget):
         # Abre a janela de configurações
         settings_window = SettingsWindow()
         settings_window.show_all()
 
-async def main_async():
+if __name__ == "__main__":
     app = ChatBotApp()
     app.connect("destroy", Gtk.main_quit)
     app.show_all()
-    await asyncio.get_event_loop().run_in_executor(None, Gtk.main)
-
-if __name__ == "__main__":
-    asyncio.run(main_async())
+    Gtk.main()

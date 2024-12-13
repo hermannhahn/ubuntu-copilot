@@ -20,8 +20,16 @@ class ChatWindow:
         if not self.api_key or not self.project_id or not self.region:
             # open settings
             self.settings_window.show()
-            # open alert message
-            raise ValueError("Por favor, insira sua API Key, ID do projeto e região nas configurações.")
+            # open popup with alert message
+            dialog = Gtk.MessageDialog(
+                transient_for=None,
+                flags=0,
+                message_type=Gtk.MessageType.WARNING,
+                buttons=Gtk.ButtonsType.OK,
+                text="Por favor, configure as credenciais antes de continuar.",
+            )
+            dialog.run()
+            dialog.destroy()
 
         genai.configure(api_key=self.api_key)
         vertexai.init(project=self.project_id, location=self.region)

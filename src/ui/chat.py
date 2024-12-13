@@ -71,11 +71,11 @@ class ChatWindow():
         # Verifica se a mensagem não está vazia
         if message.strip():
             # Envia a mensagem para o modelo de linguagem e exibe a resposta
-            asyncio.create_task(self.send_message(message))
+            asyncio.run(self.send_message(message))
 
     async def send_message(self, message):
         # Chama o Vertex AI para obter a resposta
-        jsonResponse = self.model.generate_content(message)
+        jsonResponse = await self.model.generate_content(message)
         response = jsonResponse.candidates[0].content.parts[0].text
         # Exibe a resposta no chat
         self.buffer.insert(self.buffer.get_end_iter(), f"Bot: {response}\n")

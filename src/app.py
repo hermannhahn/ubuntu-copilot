@@ -1,10 +1,7 @@
-import os 
 import gi
 import asyncio
 from settings import load_api_key, load_project_id, load_region, SettingsWindow
 import google.generativeai as genai
-from google.cloud import aiplatform
-import base64
 import vertexai
 from vertexai.generative_models import GenerativeModel, SafetySetting, Part
 

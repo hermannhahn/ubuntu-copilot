@@ -32,8 +32,8 @@ class App(Gtk.Window):
         layout.pack_start(chat_scroll, True, True, 0)
         
         # Bottom
-        bottom = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-        layout.pack_start(bottom, False, False, (10, 10, 10, 0))
+        bottom = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
+        layout.pack_start(bottom, False, False, 10)
 
         # Campo de entrada
         self.entry = Gtk.Entry()

@@ -1,6 +1,8 @@
 import base64
 import vertexai
 from vertexai.generative_models import GenerativeModel, SafetySetting, Part
+import google.generativeai as genai
+from google.cloud import aiplatform
 
 
 def multiturn_generate_content():
@@ -37,3 +39,20 @@ safety_settings = [
 ]
 
 multiturn_generate_content()
+
+parts = [
+    Part(
+        content="Olá, como você está?",
+        part_type=Part.PartType.TEXT,
+    ),
+    Part(
+        content="Estou bem, obrigado por perguntar. Como posso te ajudar?",
+        part_type=Part.PartType.TEXT,
+    ),
+]
+response = chat.generate_content(
+    parts=parts,
+    generation_config=generation_config,
+    safety_settings=safety_settings,
+)
+print(response.text)

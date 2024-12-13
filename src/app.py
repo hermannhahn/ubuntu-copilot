@@ -10,8 +10,8 @@ class App(Gtk.Window):
         self.set_default_size(600, 400)
 
         # Layout principal (chat)
-        self.chat_window = ChatWindow()
-        self.add(self.chat_window)
+        self.chat = ChatWindow()
+        self.add(self.chat)
 
 if __name__ == "__main__":
     app = App()

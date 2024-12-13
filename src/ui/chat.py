@@ -12,10 +12,17 @@ from settings import SettingsWindow, load_api_key, load_project_id, load_region
 class ChatWindow:
     def __init__(self):
         # Configuração do Vertex AI
+        self.settings_window = SettingsWindow()
         self.api_key = load_api_key()
-        genai.configure(api_key=self.api_key)
         self.project_id = load_project_id()
         self.region = load_region()
+        
+        if not self.api_key or not self.project_id or not self.region:
+            # open settings
+            self.settings_window.show()
+            return        
+
+        genai.configure(api_key=self.api_key)
         vertexai.init(project=self.project_id, location=self.region)
         self.model = GenerativeModel("gemini-1.5-flash-002")
 
@@ -84,5 +91,4 @@ class ChatWindow:
 
     def open_settings(self, widget):
         # Abre a janela de configurações
-        settings_window = SettingsWindow()
-        settings_window.show()
+        self.settings_window.show()

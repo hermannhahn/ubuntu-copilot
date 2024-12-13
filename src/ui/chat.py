@@ -9,6 +9,23 @@ from settings import load_api_key, load_project_id, load_region, SettingsWindow
 import vertexai
 from vertexai.generative_models import GenerativeModel, SafetySetting, Part
 
+import gi
+import asyncio
+from gi.repository import Gtk, GLib
+
+gi.require_version("Gtk", "3.0")
+
+# Integração do loop de eventos do asyncio com o GTK
+def integrate_asyncio_with_glib():
+    loop = asyncio.get_event_loop()
+    GLib.io_add_watch(
+        loop._csock.fileno(),  # File descriptor do asyncio
+        GLib.IO_IN,           # Condição de leitura
+        lambda fd, cond: loop._read_from_self() or True,
+    )
+
+integrate_asyncio_with_glib()
+
 class ChatWindow:
     def __init__(self):
         # Configuração do Vertex AI

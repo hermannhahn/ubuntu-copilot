@@ -1,9 +1,9 @@
+from settings import load_api_key, load_project_id, load_region, SettingsWindow
 import gi
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk, GLib
 
 import threading
-from settings import load_api_key, load_project_id, load_region, SettingsWindow
 
 import google.generativeai as genai
 import vertexai

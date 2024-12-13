@@ -1,22 +1,21 @@
 import gi
-
 gi.require_version("Gtk", "3.0")
-from gi.repository import Gtk
+from gi.repository import Gtk, GLib
+
+import asyncio
 
 import google.generativeai as genai
 from settings import load_api_key, load_project_id, load_region, SettingsWindow
-import asyncio
 import vertexai
 from vertexai.generative_models import GenerativeModel, SafetySetting, Part
 
-class ChatWindow():
+class ChatWindow:
     def __init__(self):
         # Configuração do Vertex AI
         self.api_key = load_api_key()
         genai.configure(api_key=self.api_key)
         self.project_id = load_project_id()
         self.region = load_region()
-        #self.endpoint_id = load_endpoint_id()
         vertexai.init(project=self.project_id, location=self.region)
         self.model = GenerativeModel("gemini-1.5-flash-002")
         
@@ -54,13 +53,14 @@ class ChatWindow():
         send_button.connect("clicked", self.on_message_sent)
         bottom.pack_start(send_button, False, False, 0)
 
-        # Botão para abrir configurações ao lado do botão enviar
+        # Botão para abrir configurações
         settings_button = Gtk.Button(label="⚙")
         settings_button.connect("clicked", self.open_settings)
         bottom.pack_start(settings_button, False, False, 0)
 
-    def on_message_sent(self, message):
-        asyncio.run(self.send_message(message))
+    def on_message_sent(self, widget):
+        # Cria uma tarefa assíncrona no loop principal
+        asyncio.create_task(self.send_message(widget))
 
     async def send_message(self, widget):
         # Captura o texto da entrada
@@ -74,17 +74,16 @@ class ChatWindow():
         # Verifica se a mensagem não está vazia
         if message.strip():
             # Envia a mensagem para o modelo de linguagem e exibe a resposta
-            await self.gemini_response(message)
+            response = await self.gemini_response(message)
+            self.buffer.insert(self.buffer.get_end_iter(), f"Bot: {response}\n")
 
-    def gemini_response(self, message):
-        # Chama o Vertex AI para obter a resposta
-        jsonResponse = self.model.generate_content(message)
-        response = jsonResponse.candidates[0].content.parts[0].text
-        # Exibe a resposta no chat
-        self.buffer.insert(self.buffer.get_end_iter(), f"Bot: {response}\n")
+    async def gemini_response(self, message):
+        # Usa asyncio para executar a operação bloqueante no loop
+        loop = asyncio.get_event_loop()
+        jsonResponse = await loop.run_in_executor(None, self.model.generate_content, message)
+        return jsonResponse.candidates[0].content.parts[0].text
 
     def open_settings(self, widget):
         # Abre a janela de configurações
         settings_window = SettingsWindow()
         settings_window.show_all()
-    

@@ -20,7 +20,8 @@ class ChatWindow:
         if not self.api_key or not self.project_id or not self.region:
             # open settings
             self.settings_window.show()
-            return        
+            # open alert message
+            raise ValueError("Por favor, insira sua API Key, ID do projeto e região nas configurações.")
 
         genai.configure(api_key=self.api_key)
         vertexai.init(project=self.project_id, location=self.region)

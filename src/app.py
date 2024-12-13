@@ -18,8 +18,6 @@ class App(Gtk.Window):
         # Layout principal
         layout = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
         self.add(layout)
-        bottom = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-        self.add(bottom)
 
         # Área de exibição do chat
         self.chat_display = Gtk.TextView()
@@ -32,6 +30,10 @@ class App(Gtk.Window):
         chat_scroll.set_vexpand(True)
         chat_scroll.add(self.chat_display)
         layout.pack_start(chat_scroll, True, True, 0)
+        
+        # Bottom
+        bottom = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        layout.pack_start(bottom, False, False, 0)
 
         # Campo de entrada
         self.entry = Gtk.Entry()

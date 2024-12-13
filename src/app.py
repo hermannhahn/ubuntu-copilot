@@ -1,6 +1,6 @@
 import gi
 import openai
-from settings import load_api_key
+from settings import load_api_key, SettingsWindow
 
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
@@ -40,6 +40,11 @@ class ChatBotApp(Gtk.Window):
         send_button.connect("clicked", self.on_message_sent)
         layout.pack_start(send_button, False, False, 0)
 
+        # Botão para abrir configurações
+        settings_button = Gtk.Button(label="Configurações")
+        settings_button.connect("clicked", self.open_settings)
+        layout.pack_start(settings_button, False, False, 0)
+
     def on_message_sent(self, widget):
         # Captura o texto da entrada
         message = self.entry.get_text()
@@ -69,6 +74,11 @@ class ChatBotApp(Gtk.Window):
             return response['choices'][0]['message']['content'].strip()
         except Exception as e:
             return f"Erro ao obter resposta: {e}"
+
+    def open_settings(self, widget):
+        # Abre a janela de configurações
+        settings_window = SettingsWindow()
+        settings_window.show_all()
 
 if __name__ == "__main__":
     app = ChatBotApp()

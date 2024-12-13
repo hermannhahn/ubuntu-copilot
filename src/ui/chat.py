@@ -2,23 +2,12 @@ import gi
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk, GLib
 
-import asyncio
+import threading
 
 import google.generativeai as genai
 from settings import load_api_key, load_project_id, load_region, SettingsWindow
 import vertexai
 from vertexai.generative_models import GenerativeModel, SafetySetting, Part
-
-# Integração do loop de eventos do asyncio com o GTK
-def integrate_asyncio_with_glib():
-    loop = asyncio.get_event_loop()
-    GLib.io_add_watch(
-        loop._csock.fileno(),  # File descriptor do asyncio
-        GLib.IO_IN,           # Condição de leitura
-        lambda fd, cond: loop._read_from_self() or True,
-    )
-
-integrate_asyncio_with_glib()
 
 class ChatWindow:
     def __init__(self):
@@ -70,10 +59,6 @@ class ChatWindow:
         bottom.pack_start(settings_button, False, False, 0)
 
     def on_message_sent(self, widget):
-        # Cria uma tarefa assíncrona no loop principal
-        asyncio.create_task(self.send_message(widget))
-
-    async def send_message(self, widget):
         # Captura o texto da entrada
         message = self.entry.get_text()
         # Limpa o campo de entrada
@@ -85,14 +70,12 @@ class ChatWindow:
         # Verifica se a mensagem não está vazia
         if message.strip():
             # Envia a mensagem para o modelo de linguagem e exibe a resposta
-            response = await self.gemini_response(message)
-            self.buffer.insert(self.buffer.get_end_iter(), f"Bot: {response}\n")
+            threading.Thread(target=self.gemini_response, args=(message,), daemon=True).start()
 
-    async def gemini_response(self, message):
-        # Usa asyncio para executar a operação bloqueante no loop
-        loop = asyncio.get_event_loop()
-        jsonResponse = await loop.run_in_executor(None, self.model.generate_content, message)
-        return jsonResponse.candidates[0].content.parts[0].text
+    def gemini_response(self, message):
+        jsonResponse = self.model.generate_content(message)
+        response = jsonResponse.candidates[0].content.parts[0].text
+        self.buffer.insert(self.buffer.get_end_iter(), f"Bot: {response}\n")
 
     def open_settings(self, widget):
         # Abre a janela de configurações

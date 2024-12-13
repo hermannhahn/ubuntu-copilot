@@ -71,18 +71,20 @@ class App(Gtk.Window):
         # Limpa o campo de entrada
         self.entry.set_text("")
         # Exibe a mensagem no chat
-        buffer = self.chat_display.get_buffer()
-        buffer.insert(buffer.get_end_iter(), f"Você: {message}\n")
+        self.buffer = self.chat_display.get_buffer()
+        self.buffer.insert(self.buffer.get_end_iter(), f"Você: {message}\n")
 
         # Verifica se a mensagem não está vazia
         if message.strip():
+            # Envia a mensagem para o modelo de linguagem e exibe a resposta
+            asyncio.create_task(self.send_message(message))
 
-            # Chama o Vertex AI para obter a resposta
-            jsonResponse = self.model.generate_content(message)
-            response = jsonResponse.candidates[0].content.parts[0].text
-
-            # Exibe a resposta no chat
-            buffer.insert(buffer.get_end_iter(), f"Bot: {response}\n")
+    async def send_message(self, message):
+        # Chama o Vertex AI para obter a resposta
+        jsonResponse = self.model.generate_content(message)
+        response = jsonResponse.candidates[0].content.parts[0].text
+        # Exibe a resposta no chat
+        self.buffer.insert(self.buffer.get_end_iter(), f"Bot: {response}\n")
 
     def open_settings(self, widget):
         # Abre a janela de configurações

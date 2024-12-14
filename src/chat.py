@@ -47,7 +47,6 @@ class ChatWindow:
         self.entry = Gtk.TextView()
         self.entry.set_wrap_mode(Gtk.WrapMode.WORD)  # Quebra de linha automática
         self.entry.set_vexpand(True)  # Expande verticalmente
-        self.entry.connect("key-press-event", self.on_key_press)
 
         # Botão de enviar
         self.send_button = Gtk.Button(label="Enviar")
@@ -64,12 +63,14 @@ class ChatWindow:
         self.bottom.append(self.send_button)
         self.bottom.append(self.settings_button)
 
-    def on_key_press(self, widget, event):
-        keyval = event.keyval
-        state = event.state
+        # Adicionar controlador de eventos para capturar teclas
+        key_controller = Gtk.EventControllerKey()
+        key_controller.connect("key-pressed", self.on_key_pressed)
+        self.text_view.add_controller(key_controller)
 
+    def on_key_pressed(self, controller, keyval, keycode, state):
         # Detecta Shift+Enter
-        if keyval == Gdk.KEY_Return and state & Gdk.ModifierType.SHIFT_MASK:
+        if keyval == Gdk.KEY_Return and (state & Gdk.ModifierType.SHIFT_MASK):
             return False  # Permite a quebra de linha normal
 
         # Detecta Enter sem Shift

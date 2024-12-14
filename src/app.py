@@ -13,21 +13,11 @@ class App(Gtk.ApplicationWindow):
         self.chat = ChatWindow()
         self.set_child(self.chat.layout)
         
-    def close_alert(self, d):
-        d.close()
-        self.open_settings()
-
-    def open_settings(self):
-        self.settings_window.show()
-
-
 class MyApp(Gtk.Application):
     def __init__(self):
         super().__init__()
 
     def do_activate(self):
-        win = App(self)
-
         self.settings_window = SettingsWindow()
         self.api_key = load_api_key()
         self.project_id = load_project_id()
@@ -47,8 +37,15 @@ class MyApp(Gtk.Application):
             api_alert.connect("response", lambda d, r: self.close_alert(d))
             api_alert.show()
 
-
+        win = App(self)
         win.present()
+
+    def close_alert(self, d):
+        d.close()
+        self.open_settings()
+
+    def open_settings(self):
+        self.settings_window.show()
 
 if __name__ == "__main__":
     app = MyApp()

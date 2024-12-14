@@ -33,7 +33,11 @@ class ChatWindow:
 
         if not self.api_key or not self.project_id or not self.region:
             self.api_alert.show()
+            return
 
+        self.build()
+
+    def build(self):
         # Layout principal
         self.layout = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
         self.layout.set_margin_top(10)
@@ -71,13 +75,12 @@ class ChatWindow:
         self.settings_button = Gtk.Button(label="⚙")
         self.settings_button.connect("clicked", self.open_settings)
             
-    def build(self):
-            self.chat_scroll.set_child(self.chat_display)
-            self.layout.append(self.chat_scroll)
-            self.layout.append(self.bottom)
-            self.bottom.append(self.entry)
-            self.bottom.append(self.send_button)
-            self.bottom.append(self.settings_button)
+        self.chat_scroll.set_child(self.chat_display)
+        self.layout.append(self.chat_scroll)
+        self.layout.append(self.bottom)
+        self.bottom.append(self.entry)
+        self.bottom.append(self.send_button)
+        self.bottom.append(self.settings_button)
             
     def close_alert(self, d):
         d.close()

@@ -73,18 +73,17 @@ class ChatWindow:
         )
         self.api_alert.connect("response", lambda d, r: self.close_alert(d))
 
-        self.layout.append(self.chat_scroll)
-        self.layout.append(self.bottom)
-        self.bottom.append(self.entry)
-        self.bottom.append(self.send_button)
-        self.bottom.append(self.settings_button)
-
         # Verifica se as credenciais estão configuradas
         if not self.api_key or not self.project_id or not self.region:
             self.api_alert.show()
             return
 
         self.chat_scroll.set_child(self.chat_display)
+        self.layout.append(self.chat_scroll)
+        self.layout.append(self.bottom)
+        self.bottom.append(self.entry)
+        self.bottom.append(self.send_button)
+        self.bottom.append(self.settings_button)
 
     def close_alert(self, d):
         d.close()

@@ -103,3 +103,4 @@ class SettingsWindow(Gtk.Window):
 
     def close(self, d):
         d.close()
+        self.destroy()

@@ -66,7 +66,7 @@ class ChatWindow:
         # Adicionar controlador de eventos para capturar teclas
         key_controller = Gtk.EventControllerKey()
         key_controller.connect("key-pressed", self.on_key_pressed)
-        self.text_view.add_controller(key_controller)
+        self.entry.add_controller(key_controller)
 
     def on_key_pressed(self, controller, keyval, keycode, state):
         # Detecta Shift+Enter

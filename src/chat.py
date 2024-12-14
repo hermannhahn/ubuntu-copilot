@@ -30,6 +30,10 @@ class ChatWindow:
 
         # Bottom
         self.bottom = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=5)
+        self.bottom.set_margin_top(0)
+        self.bottom.set_margin_bottom(5)
+        self.bottom.set_margin_start(5)
+        self.bottom.set_margin_end(5)
 
         # Campo de entrada
         self.entry = Gtk.Entry()

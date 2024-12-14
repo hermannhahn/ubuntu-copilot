@@ -84,18 +84,21 @@ class ChatWindow:
     def on_message_sent(self, widget=None):
         # verifica api
         self.check_api_key()
+        
         # Captura o texto da entrada
-        message = self.entry.get_text()
+        buffer = self.text_view.get_buffer()
+        start_iter = buffer.get_start_iter()
+        end_iter = buffer.get_end_iter()
+        text = buffer.get_text(start_iter, end_iter, True).strip()
+
+        if text:
+            # Adiciona o texto enviado no display de mensagens
+            display_buffer = self.chat_display.get_buffer()
+            display_buffer.insert(display_buffer.get_end_iter(), f"Você: {text}\n")
+            self.ai.get_response(text, self.callback)
+
         # Limpa o campo de entrada
         self.entry.set_text("")
-        # Exibe a mensagem no chat
-        buffer = self.chat_display.get_buffer()
-        buffer.insert(buffer.get_end_iter(), f"Você: {message}\n")
-
-        # Verifica se a mensagem não está vazia
-        if message.strip():
-            # Envia a mensagem para o modelo de linguagem e exibe a resposta
-            self.ai.get_response(message, self.callback)
 
     def callback(self, response):
         buffer = self.chat_display.get_buffer()

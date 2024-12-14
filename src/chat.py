@@ -46,7 +46,8 @@ class ChatWindow:
         # Campo de texto multilinhas (TextView)
         self.entry = Gtk.TextView()
         self.entry.set_wrap_mode(Gtk.WrapMode.WORD)  # Quebra de linha automática
-        self.entry.set_vexpand(True)  # Expande verticalmente
+        self.entry.set_vexpand(False)  # Expande verticalmente
+        self.entry.set_hexpand(True)  # Expande horizontalmente
 
         # Botão de enviar
         self.send_button = Gtk.Button(label="Enviar")

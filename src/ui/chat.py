@@ -21,21 +21,6 @@ class ChatWindow:
         genai.configure(api_key=self.api_key)
         vertexai.init(project=self.project_id, location=self.region)
         self.model = GenerativeModel("gemini-1.5-flash-002")
-
-        # Verifica se as credenciais estão configuradas
-        if not self.api_key or not self.project_id or not self.region:
-            # api key alert message
-            api_alert = Gtk.MessageDialog(
-                transient_for=None,
-                title="Settings",
-                modal=True,
-                message_type=Gtk.MessageType.WARNING,
-                buttons=Gtk.ButtonsType.OK,
-                text="Por favor, configure as credenciais antes de continuar.",
-            )
-            api_alert.connect("response", lambda d, r: self.close_alert(d))
-            api_alert.show()
-            return
         
         self.build()
 

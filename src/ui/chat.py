@@ -112,9 +112,10 @@ class ChatWindow:
     def open_settings(self):
         # Abre a janela de configurações
         self.settings_window.show()
-        self.chat_scroll.set_child(self.chat_display)
-        self.layout.append(self.chat_scroll)
-        self.layout.append(self.bottom)
-        self.bottom.append(self.entry)
-        self.bottom.append(self.send_button)
-        self.bottom.append(self.settings_button)
+        if not self.api_key or not self.project_id or not self.region:
+            self.chat_scroll.set_child(self.chat_display)
+            self.layout.append(self.chat_scroll)
+            self.layout.append(self.bottom)
+            self.bottom.append(self.entry)
+            self.bottom.append(self.send_button)
+            self.bottom.append(self.settings_button)

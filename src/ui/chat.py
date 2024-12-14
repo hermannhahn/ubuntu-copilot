@@ -71,6 +71,8 @@ class ChatWindow:
 
     def close_alert(self, d):
         d.close()
+        self.api_alert.destroy()
+        self.api_alert = None
         self.open_settings()
 
     def on_message_sent(self, widget):
@@ -85,7 +87,7 @@ class ChatWindow:
         # Verifica se as credenciais estão configuradas
         if not self.api_key or not self.project_id or not self.region:
             # api key alert message
-            api_alert = Gtk.MessageDialog(
+            self.api_alert = Gtk.MessageDialog(
                 transient_for=None,
                 title="Settings",
                 modal=True,
@@ -93,8 +95,8 @@ class ChatWindow:
                 buttons=Gtk.ButtonsType.OK,
                 text="Por favor, configure as credenciais antes de continuar.",
             )
-            api_alert.connect("response", lambda d, r: self.close_alert(d))
-            api_alert.show()
+            self.api_alert.connect("response", lambda d, r: self.close_alert(d))
+            self.api_alert.show()
             return
 
         # Verifica se a mensagem não está vazia

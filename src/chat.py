@@ -8,7 +8,11 @@ from ai import GenerativeChat
 class ChatWindow:
     def __init__(self):
         # Layout principal
-        self.layout = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=5)
+        self.layout = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=20)
+        self.layout.set_margin_top(10)
+        self.layout.set_margin_bottom(10)
+        self.layout.set_margin_start(10)
+        self.layout.set_margin_end(10)
 
         # Área de exibição do chat
         self.chat_display = Gtk.TextView()

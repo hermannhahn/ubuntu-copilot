@@ -21,6 +21,21 @@ class ChatWindow:
         genai.configure(api_key=self.api_key)
         vertexai.init(project=self.project_id, location=self.region)
         self.model = GenerativeModel("gemini-1.5-flash-002")
+
+        # Verifica se as credenciais estão configuradas
+        if not self.api_key or not self.project_id or not self.region:
+            # api key alert message
+            api_alert = Gtk.MessageDialog(
+                transient_for=None,
+                title="Settings",
+                modal=True,
+                message_type=Gtk.MessageType.WARNING,
+                buttons=Gtk.ButtonsType.OK,
+                text="Por favor, configure as credenciais antes de continuar.",
+            )
+            api_alert.connect("response", lambda d, r: self.close_alert(d))
+            api_alert.show()
+            return
         
         self.build()
 
@@ -62,22 +77,6 @@ class ChatWindow:
         self.settings_button = Gtk.Button(label="⚙")
         self.settings_button.connect("clicked", self.open_settings)
             
-        # api key alert message
-        self.api_alert = Gtk.MessageDialog(
-            transient_for=None,
-            title="Settings",
-            modal=True,
-            message_type=Gtk.MessageType.WARNING,
-            buttons=Gtk.ButtonsType.OK,
-            text="Por favor, configure as credenciais antes de continuar.",
-        )
-        self.api_alert.connect("response", lambda d, r: self.close_alert(d))
-
-        # Verifica se as credenciais estão configuradas
-        if not self.api_key or not self.project_id or not self.region:
-            self.api_alert.show()
-            return
-
         self.chat_scroll.set_child(self.chat_display)
         self.layout.append(self.chat_scroll)
         self.layout.append(self.bottom)
@@ -88,6 +87,7 @@ class ChatWindow:
     def close_alert(self, d):
         d.close()
         self.open_settings()
+        self.build()
 
     def on_message_sent(self, widget):
         # Captura o texto da entrada
@@ -112,10 +112,3 @@ class ChatWindow:
     def open_settings(self):
         # Abre a janela de configurações
         self.settings_window.show()
-        if not self.api_key or not self.project_id or not self.region:
-            self.chat_scroll.set_child(self.chat_display)
-            self.layout.append(self.chat_scroll)
-            self.layout.append(self.bottom)
-            self.bottom.append(self.entry)
-            self.bottom.append(self.send_button)
-            self.bottom.append(self.settings_button)

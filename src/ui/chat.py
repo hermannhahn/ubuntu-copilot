@@ -73,7 +73,6 @@ class ChatWindow:
         )
         self.api_alert.connect("response", lambda d, r: self.close_alert(d))
 
-
         self.chat_scroll.set_child(self.chat_display)
         self.layout.append(self.chat_scroll)
         self.layout.append(self.bottom)
@@ -109,6 +108,6 @@ class ChatWindow:
         buffer = self.chat_display.get_buffer()
         buffer.insert(buffer.get_end_iter(), f"Bot: {response}\n")
 
-    def open_settings(self, widget):
+    def open_settings(self):
         # Abre a janela de configurações
         self.settings_window.show()

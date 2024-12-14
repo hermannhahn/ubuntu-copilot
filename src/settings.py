@@ -7,35 +7,47 @@ from gi.repository import Gtk
 
 CONFIG_FILE = "config.json"
 
-def save_api_key(api_key):
+def load_config():
+    """Carrega todas as configurações do arquivo, se ele existir."""
+    if os.path.exists(CONFIG_FILE):
+        with open(CONFIG_FILE, "r") as config_file:
+            return json.load(config_file)
+    return {}
+
+def save_config(data):
+    """Salva o dicionário de configurações no arquivo."""
     with open(CONFIG_FILE, "w") as config_file:
-        json.dump({"api_key": api_key}, config_file)
+        json.dump(data, config_file, indent=4)
+
+def save_api_key(api_key):
+    """Salva a API Key no arquivo de configuração."""
+    config = load_config()
+    config["api_key"] = api_key
+    save_config(config)
 
 def load_api_key():
-    if os.path.exists(CONFIG_FILE):
-        with open(CONFIG_FILE, "r") as config_file:
-            return json.load(config_file).get("api_key", "")
-    return ""
+    """Carrega a API Key do arquivo de configuração."""
+    return load_config().get("api_key", "")
 
 def save_project_id(project_id):
-    with open(CONFIG_FILE, "w") as config_file:
-        json.dump({"project_id": project_id}, config_file)
+    """Salva o Project ID no arquivo de configuração."""
+    config = load_config()
+    config["project_id"] = project_id
+    save_config(config)
 
 def load_project_id():
-    if os.path.exists(CONFIG_FILE):
-        with open(CONFIG_FILE, "r") as config_file:
-            return json.load(config_file).get("project_id", "")
-    return ""
+    """Carrega o Project ID do arquivo de configuração."""
+    return load_config().get("project_id", "")
 
 def save_region(region):
-    with open(CONFIG_FILE, "w") as config_file:
-        json.dump({"region": region}, config_file)
+    """Salva a região no arquivo de configuração."""
+    config = load_config()
+    config["region"] = region
+    save_config(config)
 
 def load_region():
-    if os.path.exists(CONFIG_FILE):
-        with open(CONFIG_FILE, "r") as config_file:
-            return json.load(config_file).get("region", "")
-    return ""
+    """Carrega a região do arquivo de configuração."""
+    return load_config().get("region", "")
 
 class SettingsWindow(Gtk.Window):
     def __init__(self):
@@ -93,8 +105,4 @@ class SettingsWindow(Gtk.Window):
             text="Configurações salvas com sucesso!",
         )
         dialog.show()
-        dialog.connect("response", lambda d, r: self.close(d))
-
-    def close(self, d):
-        d.close()
-        self.destroy()
+        dialog.connect("response", lambda d, r: d.close())

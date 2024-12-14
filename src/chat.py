@@ -76,7 +76,7 @@ class ChatWindow:
 
         # Detecta Enter sem Shift
         if keyval == Gdk.KEY_Return:
-            self.on_send_clicked(None)  # Chama a função de envio
+            self.on_message_sent()  # Chama a função de envio
             return True  # Bloqueia a quebra de linha no TextView
 
         return False  # Permite outros comportamentos padrão

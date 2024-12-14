@@ -7,6 +7,13 @@ from ai import GenerativeChat
 
 class ChatWindow:
     def __init__(self):
+        
+        # Load AI
+        self.ai = GenerativeChat()
+        self.api_key = load_api_key()
+        self.project_id = load_project_id()
+        self.region = load_region()
+        
         # Layout principal
         self.layout = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
         self.layout.set_margin_top(0)
@@ -39,7 +46,7 @@ class ChatWindow:
         self.entry = Gtk.TextView()
         self.entry.set_wrap_mode(Gtk.WrapMode.WORD)  # Quebra de linha automática
         self.entry.set_vexpand(True)  # Expande verticalmente
-        self.entry.connect("activate", self.on_message_sent)
+        self.entry.connect("key-press-event", self.on_key_press)
 
         # Botão de enviar
         self.send_button = Gtk.Button(label="Enviar")
@@ -85,9 +92,6 @@ class ChatWindow:
         d.close()
 
     def check_api_key(self):
-        self.api_key = load_api_key()
-        self.project_id = load_project_id()
-        self.region = load_region()
         # Verifica se as credenciais estão configuradas
         if not self.api_key or not self.project_id or not self.region:
             # api key alert message

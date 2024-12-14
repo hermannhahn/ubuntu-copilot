@@ -63,6 +63,12 @@ class ChatWindow:
         self.bottom.append(self.send_button)
         self.bottom.append(self.settings_button)
 
+    def on_key_press(self, widget, event):
+        if event.keyval == 65293:  # Enter key
+            self.on_message_sent(widget)
+            return True
+        return False
+
     def on_message_sent(self, widget):
         # verifica api
         self.check_api_key()

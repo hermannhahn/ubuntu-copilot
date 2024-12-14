@@ -2,28 +2,11 @@ import gi
 gi.require_version("Gtk", "4.0")
 from gi.repository import Gtk, GLib
 
-import threading
-import google.generativeai as genai
-import vertexai
-from vertexai.generative_models import GenerativeModel
-
-from settings import SettingsWindow, load_api_key, load_project_id, load_region
+from settings import SettingsWindow
+from ai import GenerativeChat
 
 class ChatWindow:
     def __init__(self):
-        # Configuração do Vertex AI
-        self.api_key = load_api_key()
-        self.project_id = load_project_id()
-        self.region = load_region()
-
-        # Configuração do Generative AI
-        genai.configure(api_key=self.api_key)
-        vertexai.init(project=self.project_id, location=self.region)
-        self.model = GenerativeModel("gemini-1.5-flash-002")
-
-        self.build()
-
-    def build(self):
         # Layout principal
         self.layout = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
         self.layout.set_margin_top(10)
@@ -95,11 +78,9 @@ class ChatWindow:
         # Verifica se a mensagem não está vazia
         if message.strip():
             # Envia a mensagem para o modelo de linguagem e exibe a resposta
-            threading.Thread(target=self.gemini_response, args=(message,), daemon=True).start()
+            self.ai.get_response(message, self.callback)
 
-    def gemini_response(self, message):
-        jsonResponse = self.model.generate_content(message)
-        response = jsonResponse.candidates[0].content.parts[0].text
+    def callback(self, response):
         buffer = self.chat_display.get_buffer()
         buffer.insert(buffer.get_end_iter(), f"Bot: {response}\n")
 

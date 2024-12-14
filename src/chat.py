@@ -129,4 +129,6 @@ class ChatWindow:
             self.api_alert.connect("response", lambda d, r: self.close_alert(d))
             self.api_alert.show()
             return False
+        return True
+
     

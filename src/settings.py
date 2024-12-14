@@ -103,13 +103,3 @@ class SettingsWindow(Gtk.Window):
 
     def close(self, d):
         d.close()
-
-if __name__ == "__main__":
-    app = Gtk.Application()
-    def on_activate(app):
-        win = SettingsWindow()
-        win.set_application(app)
-        win.present()
-
-    app.connect("activate", on_activate)
-    app.run()

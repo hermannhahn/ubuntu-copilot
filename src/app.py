@@ -6,9 +6,6 @@ from settings import SettingsWindow, load_api_key, load_project_id, load_region
 
 class App(Gtk.ApplicationWindow):
     def __init__(self, app):
-        super().__init__(application=app, title="Ubuntu Co-Pilot Chatbot")
-        self.set_default_size(600, 400)
-
         self.settings_window = SettingsWindow()
         self.api_key = load_api_key()
         self.project_id = load_project_id()
@@ -30,6 +27,8 @@ class App(Gtk.ApplicationWindow):
             return
 
         # Layout principal (chat)
+        super().__init__(application=app, title="Ubuntu Co-Pilot Chatbot")
+        self.set_default_size(600, 400)
         self.chat = ChatWindow()
         self.set_child(self.chat.layout)
         
@@ -38,8 +37,7 @@ class App(Gtk.ApplicationWindow):
         self.open_settings()
 
     def open_settings(self):
-        self.chat = ChatWindow()
-        self.set_child(self.chat.layout)
+        self.__init__(self)
         self.settings_window.show()
 
 

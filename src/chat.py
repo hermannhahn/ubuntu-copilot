@@ -64,7 +64,7 @@ class ChatWindow:
         if not self.api_key or not self.project_id or not self.region:
             # api key alert message
             self.api_alert = Gtk.MessageDialog(
-                transient_for=None,
+                transient_for=self,
                 title="Settings",
                 modal=True,
                 message_type=Gtk.MessageType.WARNING,

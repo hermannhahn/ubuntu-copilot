@@ -19,10 +19,10 @@ class ChatWindow:
         self.chat_display.set_wrap_mode(Gtk.WrapMode.WORD)
         self.chat_display.set_editable(False)
         self.chat_display.set_cursor_visible(False)
-        self.chat_display.set_margin_top(0)
-        self.chat_display.set_margin_bottom(0)
-        self.chat_display.set_margin_start(0)
-        self.chat_display.set_margin_end(0)
+        self.chat_display.set_margin_top(5)
+        self.chat_display.set_margin_bottom(5)
+        self.chat_display.set_margin_start(5)
+        self.chat_display.set_margin_end(5)
 
         # Scroll para a área de chat
         self.chat_scroll = Gtk.ScrolledWindow()

@@ -82,6 +82,7 @@ class ChatWindow:
         # Verifica se as credenciais estão configuradas
         if not self.api_key or not self.project_id or not self.region:
             self.api_alert.show()
+            return
 
         self.chat_scroll.set_child(self.chat_display)
 

@@ -83,6 +83,7 @@ class ChatWindow:
         # Verifica se as credenciais estão configuradas
         if not self.api_key or not self.project_id or not self.region:
             self.api_alert.show()
+            self.layout.hide()
 
     def close_alert(self, d):
         d.close()

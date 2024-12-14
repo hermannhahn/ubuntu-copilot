@@ -108,7 +108,6 @@ class ChatWindow:
         # Abre a janela de configurações
         self.settings_window.show()
 
-    def close_alert(self, Widget):
-        Widget.close()
-        self.api_alert = None
+    def close_alert(self, d):
+        d.close()
         self.open_settings()

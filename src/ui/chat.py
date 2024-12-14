@@ -12,7 +12,6 @@ from settings import SettingsWindow, load_api_key, load_project_id, load_region
 class ChatWindow:
     def __init__(self):
         # Configuração do Vertex AI
-        self.settings_window = SettingsWindow()
         self.api_key = load_api_key()
         self.project_id = load_project_id()
         self.region = load_region()
@@ -106,6 +105,7 @@ class ChatWindow:
 
     def open_settings(self, widget):
         # Abre a janela de configurações
+        self.settings_window = SettingsWindow()
         self.settings_window.show()
 
     def close_alert(self, d):

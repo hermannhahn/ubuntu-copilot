@@ -9,8 +9,8 @@ class ChatWindow:
     def __init__(self):
         # Layout principal
         self.layout = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
-        self.layout.set_margin_top(10)
-        self.layout.set_margin_bottom(10)
+        self.layout.set_margin_top(0)
+        self.layout.set_margin_bottom(0)
         self.layout.set_margin_start(0)
         self.layout.set_margin_end(0)
 
@@ -19,10 +19,10 @@ class ChatWindow:
         self.chat_display.set_wrap_mode(Gtk.WrapMode.WORD)
         self.chat_display.set_editable(False)
         self.chat_display.set_cursor_visible(False)
-        self.chat_display.set_margin_top(10)
-        self.chat_display.set_margin_bottom(10)
-        self.chat_display.set_margin_start(10)
-        self.chat_display.set_margin_end(10)
+        self.chat_display.set_margin_top(0)
+        self.chat_display.set_margin_bottom(0)
+        self.chat_display.set_margin_start(0)
+        self.chat_display.set_margin_end(0)
 
         # Scroll para a área de chat
         self.chat_scroll = Gtk.ScrolledWindow()

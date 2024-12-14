@@ -84,8 +84,7 @@ class ChatWindow:
             
     def close_alert(self, d):
         d.close()
-        self.build()
-        self.settings_window.show()
+        self.settings_window.show(self)
 
     def on_message_sent(self, widget):
         # Captura o texto da entrada

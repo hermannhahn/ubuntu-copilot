@@ -35,8 +35,10 @@ class ChatWindow:
         self.bottom.set_margin_start(5)
         self.bottom.set_margin_end(5)
 
-        # Campo de entrada
-        self.entry = Gtk.Entry()
+        # Campo de texto multilinhas (TextView)
+        self.entry = Gtk.TextView()
+        self.entry.set_wrap_mode(Gtk.WrapMode.WORD)  # Quebra de linha automática
+        self.entry.set_vexpand(True)  # Expande verticalmente
         self.entry.set_placeholder_text("Digite sua mensagem...")
         self.entry.connect("activate", self.on_message_sent)
 

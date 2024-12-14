@@ -72,6 +72,7 @@ class ChatWindow:
         # api key alert message
         self.api_alert = Gtk.MessageDialog(
             transient_for=None,
+            title("Settings")
             message_type=Gtk.MessageType.WARNING,
             buttons=Gtk.ButtonsType.OK,
             text="Por favor, configure as credenciais antes de continuar.",

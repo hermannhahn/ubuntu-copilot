@@ -22,19 +22,6 @@ class ChatWindow:
         vertexai.init(project=self.project_id, location=self.region)
         self.model = GenerativeModel("gemini-1.5-flash-002")
         
-        # api key alert message
-        self.api_alert = Gtk.MessageDialog(
-            transient_for=None,
-            message_type=Gtk.MessageType.WARNING,
-            buttons=Gtk.ButtonsType.OK,
-            text="Por favor, configure as credenciais antes de continuar.",
-        )
-        self.api_alert.connect("response", lambda d, r: self.close_alert(d))
-
-        if not self.api_key or not self.project_id or not self.region:
-            self.api_alert.show()
-            return
-
         self.build()
 
     def build(self):
@@ -81,7 +68,19 @@ class ChatWindow:
         self.bottom.append(self.entry)
         self.bottom.append(self.send_button)
         self.bottom.append(self.settings_button)
-            
+
+        # api key alert message
+        self.api_alert = Gtk.MessageDialog(
+            transient_for=None,
+            message_type=Gtk.MessageType.WARNING,
+            buttons=Gtk.ButtonsType.OK,
+            text="Por favor, configure as credenciais antes de continuar.",
+        )
+        self.api_alert.connect("response", lambda d, r: self.close_alert(d))
+
+        if not self.api_key or not self.project_id or not self.region:
+            self.api_alert.show()
+
     def close_alert(self, d):
         d.close()
         self.open_settings()

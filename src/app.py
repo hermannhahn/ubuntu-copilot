@@ -36,6 +36,7 @@ class MyApp(Gtk.Application):
             )
             api_alert.connect("response", lambda d, r: self.close_alert(d))
             api_alert.show()
+            return
 
         win = App(self)
         win.present()

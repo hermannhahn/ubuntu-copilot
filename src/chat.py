@@ -1,6 +1,7 @@
 import gi
 gi.require_version("Gtk", "4.0")
 from gi.repository import Gtk, GLib
+from gi.repository import Gdk
 
 from settings import SettingsWindow, load_api_key, load_project_id, load_region
 from ai import GenerativeChat
@@ -64,11 +65,20 @@ class ChatWindow:
         self.bottom.append(self.settings_button)
 
     def on_key_press(self, widget, event):
-        if event.keyval == 65293:  # Enter key
-            self.on_message_sent(widget)
-            return True
-        return False
+        keyval = event.keyval
+        state = event.state
 
+        # Detecta Shift+Enter
+        if keyval == Gdk.KEY_Return and state & Gdk.ModifierType.SHIFT_MASK:
+            return False  # Permite a quebra de linha normal
+
+        # Detecta Enter sem Shift
+        if keyval == Gdk.KEY_Return:
+            self.on_send_clicked(None)  # Chama a função de envio
+            return True  # Bloqueia a quebra de linha no TextView
+
+        return False  # Permite outros comportamentos padrão
+    
     def on_message_sent(self, widget):
         # verifica api
         self.check_api_key()

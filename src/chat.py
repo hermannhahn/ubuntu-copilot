@@ -81,7 +81,7 @@ class ChatWindow:
 
         return False  # Permite outros comportamentos padrão
     
-    def on_message_sent(self, widget):
+    def on_message_sent(self, widget=None):
         # verifica api
         self.check_api_key()
         # Captura o texto da entrada

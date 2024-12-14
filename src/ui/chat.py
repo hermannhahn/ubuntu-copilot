@@ -81,7 +81,6 @@ class ChatWindow:
 
         if not self.api_key or not self.project_id or not self.region:
             self.api_alert.show()
-            # bring to front
             self.api_alert.present()
             return
 

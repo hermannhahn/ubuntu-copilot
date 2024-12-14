@@ -100,7 +100,7 @@ class ChatWindow:
             self.ai.get_response(text, self.callback)
 
         # Limpa o campo de entrada
-        self.entry.set_text("")
+        self.entry.get_buffer().set_text("")
 
     def callback(self, response):
         buffer = self.chat_display.get_buffer()

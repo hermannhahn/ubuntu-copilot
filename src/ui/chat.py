@@ -110,5 +110,4 @@ class ChatWindow:
 
     def close_alert(self, d):
         d.close()
-        self.destroy()
         self.open_settings()

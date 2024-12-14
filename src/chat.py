@@ -83,7 +83,9 @@ class ChatWindow:
     
     def on_message_sent(self, widget=None):
         # verifica api
-        self.check_api_key()
+        api = self.check_api_key()
+        if not api:
+            return
         
         # Captura o texto da entrada
         buffer = self.text_view.get_buffer()
@@ -126,5 +128,5 @@ class ChatWindow:
             )
             self.api_alert.connect("response", lambda d, r: self.close_alert(d))
             self.api_alert.show()
-            return
+            return False
     

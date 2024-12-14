@@ -2,7 +2,7 @@ import gi
 gi.require_version("Gtk", "4.0")
 from gi.repository import Gtk, GLib
 
-from settings import SettingsWindow
+from settings import SettingsWindow, load_api_key, load_project_id, load_region
 from ai import GenerativeChat
 
 class ChatWindow:

@@ -108,4 +108,4 @@ class ChatWindow:
 
     def open_settings(self, widget):
         # Abre a janela de configurações
-        self.settings_window.open(self)
+        self.settings_window.show()

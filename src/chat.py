@@ -52,6 +52,8 @@ class ChatWindow:
         self.bottom.append(self.settings_button)
 
     def on_message_sent(self, widget):
+        # verifica api
+        self.check_api_key()
         # Captura o texto da entrada
         message = self.entry.get_text()
         # Limpa o campo de entrada
@@ -59,21 +61,6 @@ class ChatWindow:
         # Exibe a mensagem no chat
         buffer = self.chat_display.get_buffer()
         buffer.insert(buffer.get_end_iter(), f"Você: {message}\n")
-
-        # Verifica se as credenciais estão configuradas
-        if not self.api_key or not self.project_id or not self.region:
-            # api key alert message
-            self.api_alert = Gtk.MessageDialog(
-                transient_for=self,
-                title="Settings",
-                modal=True,
-                message_type=Gtk.MessageType.WARNING,
-                buttons=Gtk.ButtonsType.OK,
-                text="Por favor, configure as credenciais antes de continuar.",
-            )
-            self.api_alert.connect("response", lambda d, r: self.close_alert(d))
-            self.api_alert.show()
-            return
 
         # Verifica se a mensagem não está vazia
         if message.strip():
@@ -92,3 +79,22 @@ class ChatWindow:
     def close_alert(self, d):
         d.close()
 
+    def check_api_key(self):
+        self.api_key = load_api_key()
+        self.project_id = load_project_id()
+        self.region = load_region()
+        # Verifica se as credenciais estão configuradas
+        if not self.api_key or not self.project_id or not self.region:
+            # api key alert message
+            self.api_alert = Gtk.MessageDialog(
+                transient_for=self,
+                title="Settings",
+                modal=True,
+                message_type=Gtk.MessageType.WARNING,
+                buttons=Gtk.ButtonsType.OK,
+                text="Por favor, configure as credenciais antes de continuar.",
+            )
+            self.api_alert.connect("response", lambda d, r: self.close_alert(d))
+            self.api_alert.show()
+            return
+    

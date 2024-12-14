@@ -88,7 +88,7 @@ class ChatWindow:
             return
         
         # Captura o texto da entrada
-        buffer = self.text_view.get_buffer()
+        buffer = self.entry.get_buffer()
         start_iter = buffer.get_start_iter()
         end_iter = buffer.get_end_iter()
         text = buffer.get_text(start_iter, end_iter, True).strip()

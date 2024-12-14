@@ -8,36 +8,30 @@ from gi.repository import Gtk
 CONFIG_FILE = "config.json"
 
 def save_api_key(api_key):
-    """Salva a chave da API no arquivo de configuração."""
     with open(CONFIG_FILE, "w") as config_file:
         json.dump({"api_key": api_key}, config_file)
 
 def load_api_key():
-    """Carrega a chave da API do arquivo de configuração, se existir."""
     if os.path.exists(CONFIG_FILE):
         with open(CONFIG_FILE, "r") as config_file:
             return json.load(config_file).get("api_key", "")
     return ""
 
 def save_project_id(project_id):
-    """Salva o ID do projeto no arquivo de configuração."""
     with open(CONFIG_FILE, "w") as config_file:
         json.dump({"project_id": project_id}, config_file)
 
 def load_project_id():
-    """Carrega o ID do projeto do arquivo de configuração, se existir."""
     if os.path.exists(CONFIG_FILE):
         with open(CONFIG_FILE, "r") as config_file:
             return json.load(config_file).get("project_id", "")
     return ""
 
 def save_region(region):
-    """Salva a região no arquivo de configuração."""
     with open(CONFIG_FILE, "w") as config_file:
         json.dump({"region": region}, config_file)
 
 def load_region():
-    """Carrega a região do arquivo de configuração, se existir."""
     if os.path.exists(CONFIG_FILE):
         with open(CONFIG_FILE, "r") as config_file:
             return json.load(config_file).get("region", "")

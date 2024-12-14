@@ -11,8 +11,8 @@ class ChatWindow:
         self.layout = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=0)
         self.layout.set_margin_top(10)
         self.layout.set_margin_bottom(10)
-        self.layout.set_margin_start(10)
-        self.layout.set_margin_end(10)
+        self.layout.set_margin_start(0)
+        self.layout.set_margin_end(0)
 
         # Área de exibição do chat
         self.chat_display = Gtk.TextView()

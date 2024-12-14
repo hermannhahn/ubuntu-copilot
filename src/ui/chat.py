@@ -88,7 +88,6 @@ class ChatWindow:
     def close_alert(self, d):
         d.close()
         self.open_settings()
-        self.chat_scroll.set_child(self.chat_display)
 
     def on_message_sent(self, widget):
         # Captura o texto da entrada
@@ -113,3 +112,9 @@ class ChatWindow:
     def open_settings(self):
         # Abre a janela de configurações
         self.settings_window.show()
+        self.chat_scroll.set_child(self.chat_display)
+        self.layout.append(self.chat_scroll)
+        self.layout.append(self.bottom)
+        self.bottom.append(self.entry)
+        self.bottom.append(self.send_button)
+        self.bottom.append(self.settings_button)

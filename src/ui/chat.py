@@ -73,7 +73,6 @@ class ChatWindow:
         )
         self.api_alert.connect("response", lambda d, r: self.close_alert(d))
 
-        self.chat_scroll.set_child(self.chat_display)
         self.layout.append(self.chat_scroll)
         self.layout.append(self.bottom)
         self.bottom.append(self.entry)
@@ -83,11 +82,13 @@ class ChatWindow:
         # Verifica se as credenciais estão configuradas
         if not self.api_key or not self.project_id or not self.region:
             self.api_alert.show()
-            self.hide()
+
+        self.chat_scroll.set_child(self.chat_display)
 
     def close_alert(self, d):
         d.close()
         self.open_settings()
+        self.chat_scroll.set_child(self.chat_display)
 
     def on_message_sent(self, widget):
         # Captura o texto da entrada

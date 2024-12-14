@@ -104,7 +104,7 @@ class ChatWindow:
         buffer = self.chat_display.get_buffer()
         buffer.insert(buffer.get_end_iter(), f"Bot: {response}\n")
 
-    def open_settings(self):
+    def open_settings(self, widget):
         # Abre a janela de configurações
         self.settings_window.show()
 

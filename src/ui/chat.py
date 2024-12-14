@@ -71,7 +71,7 @@ class ChatWindow:
 
     def close_alert(self, d):
         d.close()
-        self.api_alert.destroy()
+        self.api_alert.close()
         self.api_alert = None
         self.open_settings()
 
